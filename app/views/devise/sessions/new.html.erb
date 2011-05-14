@@ -1,0 +1,24 @@
+<h2>You know the drill&hellip;</h2>
+<%= form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f| %>
+
+    <fieldset>
+        <label for="username" class="text">
+            <span>Username</span>
+            <%= f.text_field :username, :autocomplete => 'off' %>
+        </label>
+        <label for="password" class="text">
+            <span>Password</span>
+            <%= f.password_field :password, :autocomplete => 'off' %>
+        </label>
+        <% if devise_mapping.rememberable? -%>
+        <label class="checkbox"><%= f.check_box :remember_me %> <span>Don't log me out when I close my browser, thanks</span></label>
+        <% end %>
+    </fieldset>
+
+    <fieldset class="controls">
+        <input type="hidden" id="next-url" name="next" value="<%= root_path %>" />
+        <%= f.submit "Sign in", :class => 'button' %>
+        <p><%= link_to "Forgot your password?", new_password_path(resource_name) %></p>
+    </fieldset>
+
+<% end %>

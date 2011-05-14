@@ -1,0 +1,34 @@
+<section><% 
+if controller.action_name == 'edit' 
+   @remote = false
+else
+    @remote = true
+end
+
+%>
+
+<%= form_for @comment, :remote => @remote do |f| %>
+  <%= f.error_messages :header_message => "Sorry, something went wrong:", :message => "" %>
+
+  <label for="comment" class="text">
+    <span>Comments, questions, ideas&hellip;</span>
+    <%= f.text_area :comment, :rows => 3 %>
+  </label>
+
+  <fieldset class="controls">
+    <%= f.hidden_field :posts_id, :value => @post.id %>
+    <% if controller.action_name == 'edit' %>
+	   <%= f.submit "Save comment", :class => 'button' %>
+	<% else %>
+	    <%= f.submit "Post comment", :class => 'button' %>
+ 	<% end %>
+ 	<% if controller.action_name != 'edit' %>
+ 	<p class="cta">&hellip;to private discussion between 
+    <em><%= @post.user.username %></em>
+    and 
+    <em><%= @owner.username %></em>
+    </p>
+    <% end %>
+  </fieldset>
+<% end %>
+</section>

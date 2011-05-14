@@ -1,0 +1,11 @@
+if($('#idea-wall').length==0) {
+    $('#content .container').append('<section style="display: none;" id="idea-wall">'
+    +'<%= escape_javascript( render( :partial => "idea" ) ) %>'
+    +'</section>');
+    $('#idea-wall').slideDown(700);
+} else {
+    $('#idea-wall').slideUp(700,function(){
+        $('#idea-wall').html("<%= escape_javascript( render( :partial => "idea" ) ) %>");
+        $('#idea-wall').slideDown(700);
+    });
+}

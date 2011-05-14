@@ -1,0 +1,36 @@
+$('#idea-<%= params[:id] %>').removeClass('open');
+$('#idea-<%= params[:id] %>').removeClass('owned');
+$('#idea-<%= params[:id] %>').addClass('<%= @post.status %>');
+
+$('.idea').removeClass('current-work');
+
+<% if @post.status == 'owned' %>
+
+  <% if @post.owner_id == current_user.id %>
+  $('#idea-<%= params[:id] %>').addClass('current-work');
+  $('#idea-<%= params[:id] %> .claim').show();
+  $('#idea-<%= params[:id] %> .claim').html('You\'ve claimed this idea. You can <%= link_to "discuss it", "/posts/#{@post.id}" %> or <%= link_to "release it", "/posts/#{@post.id}/claim", :remote => "true" %> if you\'re bored')
+  <% else %>
+  $('#idea-<%= params[:id] %> .claim').html('This idea has been claimed by <%= @owner.username %>')
+  <% end %>
+
+<% else %>
+
+$('#idea-<%= params[:id] %> .claim').addClass('control');
+$('#idea-<%= params[:id] %> .claim').html('This idea is open, you can <%= link_to "claim it", "/posts/#{@post.id}/claim", :remote => "true" %> for yourself')
+
+<% end %>
+
+<% if params[:confirm] %>
+toggleControls("<%= params[:controller] %>-<%= params[:action] %>-<%= params[:id] %>","",function(){
+  targetPosition=$('#idea-<%= params[:id] %>').offset().top-10;
+  $('html, body').animate({scrollTop:targetPosition}, 1000);
+});
+
+<% end %>
+
+<% if !@post_claimed.nil? %>
+$('#idea-<%= @post_claimed.id %>').removeClass('owned');
+$('#idea-<%= @post_claimed.id %> .claim').addClass('control');
+$('#idea-<%= @post_claimed.id %> .claim').html('This idea is open, you can <%= link_to "claim it", "/posts/#{@post_claimed.id}/claim", :remote => "true" %> for yourself')
+<% end %>

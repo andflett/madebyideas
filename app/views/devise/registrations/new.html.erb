@@ -1,0 +1,30 @@
+<h2>Just need a few details&hellip;</h2>
+
+<%= form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f| %>
+
+    <%= devise_error_messages! %>
+    
+    <fieldset>
+        <label for="username" class="text">
+            <span>Username</span>
+            <%= f.text_field :username, :autocomplete => 'off' %>
+        </label>
+        <label for="email" class="text">
+            <span>Email</span>
+            <%= f.text_field :email, :autocomplete => 'off' %>
+        </label>
+        <label for="password" class="text">
+            <span>Password</span>
+            <%= f.password_field :password, :autocomplete => 'off' %>
+        </label>
+        <label for="password_confirmation" class="text">
+            <span>Password, again</span>
+            <%= f.password_field :password_confirmation, :autocomplete => 'off' %>
+        </label>
+    </fieldset>
+    
+    <fieldset class="controls">
+        <%= f.submit "Create account", :class => 'button' %>
+    </fieldset>
+    
+<% end %>

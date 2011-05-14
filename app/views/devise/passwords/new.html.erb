@@ -1,0 +1,18 @@
+<h2>Forgot your password?</h2>
+
+<%= form_for(resource, :as => resource_name, :url => password_path(resource_name), :html => { :method => :post }) do |f| %>
+  <%= devise_error_messages! %>
+
+  <fieldset>
+     <label for="email" class="text">
+		<span>Your email address</span>
+  		<%= f.text_field :email %>
+	</label>
+	</fieldset>
+
+  	<fieldset class="controls">
+        <%= f.submit "Send me reset instructions", :class => 'button' %>
+    </fieldset>
+<% end %>
+
+<%= render :partial => "devise/shared/links" %>

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Made by Ideas</title>
+  <%= javascript_include_tag :defaults %>
+  <script type="text/javascript" src="/javascripts/global.js"></script>
+  <%= stylesheet_link_tag "layout" %>
+  <%= csrf_meta_tag %>
+</head>
+<body id="<%= controller_name %>">
+
+	<header>
+	    <section class="container">
+    		<h1><a href="/">Made by Ideas</a></h1>
+    		<aside>
+    			<% if user_signed_in? %>
+					<p class="control">What now, <span><%= current_user.username %></span>?</p>
+					<ul id="userControls">
+					    <li><%= link_to('Post new idea', new_post_path, :remote => 'true', :class => 'button') %></li>
+					    <li><%= link_to('View my ideas', "#{posts_path}/user/#{current_user.id}", :class => 'button') %></li>
+						<li><%= link_to('Edit my account', edit_user_registration_path, :remote => 'true', :class => 'button') %></li>
+					    <li><%= link_to('Sign out', destroy_user_session_path, :class => 'button') %></li>
+					</ul>
+    			<% else %>
+    				<p><%= link_to "Sign in", new_user_session_path, :remote => 'true' %>, create <%= link_to "an account", new_user_registration_path, :remote => 'true' %> or <%= link_to "find out more", about_path, :remote => 'true' %></p>
+    			<% end %>
+    		</aside>
+	    </section>
+	</header>
+	
+	<section id="controls">
+	    <% if notice or alert %>
+	    <section class="container notices">
+	        <p><%= notice %> <%= alert %></p>
+	    </section>
+	    <% end %>
+	    <section class="container actions"></section>
+	</section>
+	
+	<section id="content">
+	    <section class="container">
+    		<%= yield %>
+    	</section>
+    </section>
+
+	
+	
+</body>
+</html>

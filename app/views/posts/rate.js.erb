@@ -1,0 +1,20 @@
+$('#idea-<%= params[:id] %>').attr('data-rating',<%= @post.total_rating %>);
+
+$('#idea-<%= params[:id] %> .score span').fadeOut('fast',function() {
+	$('#idea-<%= params[:id] %> .score span').html(<%= @post.total_rating %>)
+	$('#idea-<%= params[:id] %> .score span').fadeIn('fast')
+});
+
+<% if @post.total_rating <= 0 %>
+$('#idea-<%= params[:id] %> .score').addClass('no-score');
+<% else %>
+$('#idea-<%= params[:id] %> .score').removeClass('no-score');
+<% end %>
+
+<% if params[:rating] == '0' %>
+	$('#idea-<%= params[:id] %> .rating li').removeClass('active');
+	$('#idea-<%= params[:id] %> .rating li[data-rate="0"]').addClass('active');
+<% else %>
+	$('#idea-<%= params[:id] %> .rating li').removeClass('active');
+	$('#idea-<%= params[:id] %> .rating li[data-rate="1"]').addClass('active');
+<% end %>

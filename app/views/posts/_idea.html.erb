@@ -1,0 +1,58 @@
+<section class="idea <%= @type %> <%= @post.status %> <%=  " inactive " unless current_user %> <%=  " current-work " if current_user.try(:id) == @post.owner_id %>" id="idea-<%= @post.id %>" data-rating="<%= @post.total_rating %>">
+	
+	<p class="meta">
+		<%= link_to "Permalink", "/i#{@post.id}", :title => "Permalink", :class => "icon permalink" %>
+		<% if current_user and @post.user.id == current_user.id %>
+      	This is <%= link_to "your", "#{posts_path}/user/#{@post.user.id}", :title=> "View your profile" %> idea from <%= @post.updated_at.to_s(:article) %>
+    	<% elsif current_user && @post.status == 'owned' && @post.owner_id == current_user.id %>
+		Idea from <%= link_to @post.user.username, "#{posts_path}/user/#{@post.user.id}", :title=> "View #{@post.user.username}'s profile" %> on <%= @post.updated_at.to_s(:article) %>
+    	<% else %>
+		Idea occurred on <%= @post.updated_at.to_s(:article) %>
+		<% end %>
+		<% if current_user %>
+			<% if @post.user.id == current_user.id %>
+			<span class="control"><%= link_to "Edit", edit_post_path(@post.id), :class => "icon edit", :title => 'Edit' %></span>
+			<span class="control"><%= link_to 'Delete', @post, :confirm => 'Are you sure you want to delete this idea?', :method => :delete, :class => 'icon delete', :title => 'Delete' %></span>
+			<% end %>
+		<% end %>
+    </p>    
+	
+	<% 
+	    @title = html_escape(@post.title)
+	    @title = @title.gsub(/(?:^|\s)#(\w+)/i,' <a href="/posts/tag/\\1">#\\1</a>') 
+	%>
+	
+	<h2><%= @title.html_safe %></h2>
+	<% if @post.body.length > 0 %>
+    <article>
+		<% @content = simple_format(html_escape(@post.body)) %>
+		<%= auto_link(@content) %>
+	</article>
+	<% end %>
+
+	<p class="score <% if @post.total_rating <= 0 %>no-score<% end %>">This idea is liked by <span><%= @post.total_rating %></span> people</p>
+
+	<aside>
+		<% if current_user %>
+		<ul class="rating toggler">
+			<li data-rate="1" <% if current_user_rating(@post.id) == 1 %>class="active"<% end %>><%= link_to "Genius", "#{posts_path}/#{@post.id}/rate/1", :remote => true %></li>
+			<li data-rate="0" <% if current_user_rating(@post.id) == 0 %>class="active"<% end %>><%= link_to "Rubbish", "#{posts_path}/#{@post.id}/rate/0", :remote => true %></li>
+		</ul>
+		<p class="claim <% if @post.status != 'owned' %>control<% end %>">
+			<% if @post.status == 'owned' %>
+			<% @owner = User.find(@post.owner_id) %>
+				<% if @post.owner_id == current_user.id %>
+				  You've claimed this idea. You can <%= link_to "discuss it", "/posts/#{@post.id}" %> or <%= link_to "release it", "/posts/#{@post.id}/claim", :remote => "true" %> if you're bored
+				<% else %>
+				  This idea has been claimed by <%= @owner.username %>
+				<% end %>
+			<% else %>
+			This idea is open, you can <%= link_to "claim it", "/posts/#{@post.id}/claim", :remote => "true" %> for yourself
+			<% end %>
+		</p>
+		<% else %>
+		<p><%= link_to "Sign in", new_user_session_path, :remote => 'true' %> to rate or claim this idea</p>
+		<% end %>
+	</aside>
+	
+</section>

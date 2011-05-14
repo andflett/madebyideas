@@ -1,0 +1,22 @@
+<section>
+    <%= form_for @post do |f| %>
+      <%= f.error_messages :header_message => "Sorry, something went wrong:",
+        :message => "" %>
+  	  <label for="title" class="text">
+	        <span>What's your idea?</span>
+	        <%= f.text_field :title, :class => 'text', 'data-max-chars' => '90' %>
+	    </label>
+	    <label for="body" class="text">
+	        <span>Anything else to add?</span>
+	        <%= f.text_area :body, :rows => 6, :cols => 30 %>
+	    </label>
+	    <fieldset class="controls">
+	    <% if controller.action_name == 'edit' %>
+		   <%= f.submit "Save", :class => 'button' %>
+		<% else %>
+		    <%= f.submit "Publish", :class => 'button' %>
+	 	<% end %>
+	 	<p><a class="cancel" href="<%= root_path %>">Cancel</a></p>
+	 	</fieldset>
+    <% end %> 
+</section>

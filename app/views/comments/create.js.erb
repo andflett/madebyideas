@@ -1,0 +1,1 @@
+$('#comments section').after("<%= escape_javascript( render :partial => "comment", :locals => { :comment => @comment } ) %>")

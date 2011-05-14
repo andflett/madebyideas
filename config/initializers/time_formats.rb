@@ -1,0 +1,1 @@
+Time::DATE_FORMATS[:article] = lambda { |time| time.strftime("%a, %b %e %Y  at %l:%M") + time.strftime("%p").downcase }

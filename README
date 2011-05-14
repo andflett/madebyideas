@@ -1,0 +1,7 @@
+== Made by Ideas
+
+Full service requires three scripts to be running on cron:
+
+1. script/mail_receiver.rb: Fetches ideas from the IMAP server
+2. script/notifier.rb: Delivers the user notification queue
+3. script/publisher.rb: Publishes queued ideas to the wider-web (Twitter for now). This isn't done after_create to give us a few minutes to moderate.

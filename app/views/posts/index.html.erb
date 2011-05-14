@@ -1,0 +1,22 @@
+<% if @user %>
+  <h2>A stream of consciousness from <%= @user.username%></h2>
+  <% if @posts.count == 0 %>
+  <p class="cta">Nothing here yet, luckily there are <%= link_to "many", root_path %> more ideas&hellip;</p>
+  <% end %>
+<% end %>
+
+<% if @tag %>
+  <h2>On the subject of <em><%= @tag %></em></h2>
+<% end %>
+
+<% @posts.each do |post| %>
+    <% 
+	  @post = post 
+	  @type = 'list'
+	%>
+    <%= render :partial => 'idea' %>
+<% end %>
+
+<% if @posts.next_page %>
+<p class="cta"><a href="/posts?page=<%=@posts.next_page%>" data-remote="true" id="load_more">More ideas&hellip;</a></p>
+<% end %>

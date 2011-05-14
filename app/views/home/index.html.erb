@@ -1,0 +1,10 @@
+<% @posts.each do |post| %>
+    <% @post = post 
+       @type = 'list'
+    %>
+    <%= render :partial => 'posts/idea' %>
+<% end %>
+
+<% if @posts.next_page %>
+<p class="cta"><a href="/posts?page=<%=@posts.next_page%>" data-remote="true" id="load_more">More ideas...</a></p>
+<% end %>

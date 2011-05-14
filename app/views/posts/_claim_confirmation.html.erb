@@ -1,0 +1,6 @@
+<h2>Sorry, no multi-tasking allowed&hellip;</h2>
+<p>You're currently working on "<em><%= @post_claimed.title %></em>" would you like to release it and start on "<em><%= @post.title %></em>" instead?</p>
+<ul class="cta_list">
+    <li><%= link_to "Yes, start working on this idea", "/posts/#{@post.id}/claim?confirm=true", :remote => "true", :class => 'button' %></li>
+    <li><a class="cancel" href="<%= root_path %>">Cancel</a></li>
+</ul>
