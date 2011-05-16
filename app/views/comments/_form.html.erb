@@ -23,7 +23,7 @@ end
 	    <%= f.submit "Post comment", :class => 'button' %>
  	<% end %>
  	<% if controller.action_name != 'edit' %>
- 	<p class="cta">&hellip;to private discussion between 
+ 	<p class="cta">Private discussion between 
     <em><%= @post.user.username %></em>
     and 
     <em><%= @owner.username %></em>

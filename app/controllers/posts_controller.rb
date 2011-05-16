@@ -1,5 +1,5 @@
 class PostsController < ApplicationController
-  before_filter :authenticate_user!, :only => [:new, :create, :edit, :update, :destroy, :rate, :claim]
+  before_filter :authenticate_user!, :only => [:new, :create, :edit, :update, :destroy, :rate, :claim, :toggle_flagged, :toggle_deleted]
   before_filter :fetch_post, :only => [:edit, :update, :destroy]
   before_filter :authorise_as_owner, :only => [:edit, :update, :destroy]
      
@@ -27,12 +27,12 @@ class PostsController < ApplicationController
     
   	if params[:user]
   	  @user = User.find(params[:user])
-  	  @conditions = ['users_id=?',"#{Integer(params[:user])}"]
+  	  @conditions = ['users_id=? and deleted = false',"#{Integer(params[:user])}"]
   	elsif params[:tag]
   	   @tag = params[:tag]
-       @conditions = ['lower(title) LIKE ?',"%##{params[:tag].downcase}%"]
+       @conditions = ['lower(title) LIKE ? and deleted = false',"%##{params[:tag].downcase}%"]
   	elsif current_user
-  	  @conditions = ['users_id=?',"#{current_user.id}"]
+  	  @conditions = ['users_id=? and deleted = false',"#{current_user.id}"]
     end
     
     @posts = Post.paginate :page => params[:page], 
@@ -49,15 +49,21 @@ class PostsController < ApplicationController
     else 
         respond_to do |format|
             format.html { render :layout => true }
-            format.js { render :layout => false }  
+            format.js { render :layout => false }
+            format.rss { render :layout => false } 
         end
     end
     
   end
   
   def show
-    @post = Post.find(params[:id])
+    @post = Post.find_by_id_and_deleted(params[:id],false)
     @new_comment = Comment.new
+    
+    if @post.nil?
+      render 'about/error_404' 
+      return
+    end
     
     unless @post.owner_id.nil?
       @owner = User.find(@post.owner_id)
@@ -116,51 +122,54 @@ class PostsController < ApplicationController
 	  end
   end
   
-  def flag
-    @post = Post.find(params[:id])
+  def toggle_flagged
     
-    if @post.status == 'open'
-      @post.update_attribute(:status, 'owned')
+    @post = Post.find(params[:id])
+    @notifications = Notification.new()
+    
+    if @post.flagged == true && current_user.admin
+      @post.update_attribute(:flagged, false)
       @post.save
-    elsif @post.status == 'owned'
-      @post.update_attribute(:status, 'open')
+    elsif @post.flagged == false
+      @post.update_attribute(:flagged, true)
       @post.save
+      @notifications.queue_notification(
+        action_name,
+        controller_name,
+        current_user.id,
+        @post.id,
+        @post.flagged
+      )
     end
         
     respond_to do |format|
       format.js { render :layout => false }
     end
+    
   end
   
-  def hide
+  def toggle_deleted
+    
     @post = Post.find(params[:id])
     
-    if @post.status == 'open'
-      @post.update_attribute(:status, 'owned')
-      @post.save
-    elsif @post.status == 'owned'
-      @post.update_attribute(:status, 'open')
-      @post.save
+    if current_user.admin
+      if @post.deleted == true
+        @post.update_attribute(:deleted, false)
+        @post.save
+        redirect_to root_path
+      elsif @post.deleted == false
+        @post.update_attribute(:deleted, true)
+        @post.update_attribute(:owner_id, nil)
+        @post.update_attribute(:status, 'open')
+        @post.save
+        respond_to do |format|
+          format.js { render :layout => false }
+        end
+      end
     end
-        
-    respond_to do |format|
-      format.js { render :layout => false }
-    end
+    
   end
-  
-  def update
-   @post = Post.find(params[:id])
-   @post.user = current_user
-   	 respond_to do |format|
-	    if @post.update_attributes(params[:post])
-	      	format.json { render :json => {:id=> @post.id, :name => @post.photo.name} }
-	        format.html { redirect_to("#{root_path}#idea-#{@post.id}") }
-	    else
-	      render :action => 'edit'
-	    end
-	  end
-  end
-  
+
   def rate
     @post = Post.find(params[:id])
     if @rating = current_user.ratings.find_by_post_id(params[:id])
@@ -178,7 +187,7 @@ class PostsController < ApplicationController
   end
   
   def claim
-    @post = Post.find(params[:id])
+    @post = Post.find_by_id_and_deleted(params[:id],false)
     @post_claimed = Post.find_by_owner_id(current_user.id)
     @notifications = Notification.new()
     

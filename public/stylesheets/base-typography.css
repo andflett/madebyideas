@@ -29,7 +29,7 @@ body { font-family: DroidSans, Arial, Helvetica, Sans-Serif; color: #393c3f; }
     font-size: 1em;
   }
   
-  section.about h2 { padding-top: 0.5em; }
+  section.about h2 { padding-top: 7px; }
   section.about h2:first-child {
     padding: 0;
   }

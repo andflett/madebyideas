@@ -1,8 +1,14 @@
 /* =loading */
 
 		a.loading { opacity: 0.2; }
+		
 		form.loading fieldset.controls {
 		  background: url(../images/assets/loading.gif) no-repeat 98% 30%;
+		}
+		
+		#load_more {
+		  padding-bottom: 0px;
+		  display: block;
 		}
 	
 /* =cta */
@@ -13,7 +19,7 @@
 	}
 	
 	.cta_list {
-	  padding: 0.5em 0 1.25em 0; 
+	  padding: 1em 0 1.25em 0; 
 	  list-style-type: none;
 	  width: 100%;
 	  overflow: hidden;
@@ -59,7 +65,7 @@
 			    rgb(186,39,37) 21%,
 			    rgb(212,66,66) 86%
 		      );
-		      background-color: #ca4c4d;
+		    background-color: #ca4c4d;
         -webkit-box-shadow: 0px 1px 0px rgba(127,36,36,1);
         -moz-box-shadow: 0px 1px 0px rgba(127,36,36,1);
 		    box-shadow: 0px 1px 0px rgba(127,36,36,1);
@@ -72,20 +78,28 @@
 	.icon {
 		text-indent: -1337px;
 		display: block;
-		opacity: 0.7;
-		height: 14px; width: 14px;
+		opacity: 0.15;
+		height: 16px; width: 16px;
 		background-repeat: no-repeat;
 		background-position: top left;
 	}
 	
 	.icon:hover {
-		opacity: 1;
+		opacity: 0.7;
 	}
 	
 	.edit {	background-image: url(../images/icons/edit.png); }
 	.delete { background-image: url(../images/icons/delete.png); }
 	.claim { background-image: url(../images/icons/claim.png); }
 	.permalink { background-image: url(../images/icons/permalink.png); }
+	.discuss { background-image: url(../images/icons/discuss.png); position: relative; top: 1px; }
+  .flag { background-image: url(../images/icons/flag.png); }
+  .flagged { background-image: url(../images/icons/flagged.png); opacity: 0.8; }
+
+  .rss {
+     height: 20px; width: 20px;
+     background-image: url(../images/icons/rss.png);
+   }
 
 /* =new_post */
 
@@ -112,7 +126,7 @@
 /* =idea */
 
 	.idea {
-		margin: 15px 0 40px;
+		margin: 15px 0 35px;
 		padding: 17px 15px 15px 15px;
 		background: #fff;
 		position: relative;
@@ -127,8 +141,7 @@
 	}
 	
 	.owned { opacity: 0.55; }
-	.single { opacity: 0.9; }
-	.inactive, .current-work { opacity: 0.9; }
+	.single, .current-work { opacity: 0.9; }
 	.idea aside { width: 100%; overflow: hidden; }
 		
 	section#content .idea h2 { 
@@ -152,23 +165,20 @@
 		.meta {
 			font-size: 10px;
 			margin-bottom: 11px;
-			line-height: 16px; 
+			line-height: 17px; 
 		}
 		
 		.meta .icon { 
 			display: inline-block; 
-			padding-right: 4px;
-			opacity: 0.25;
+			padding-right: 5px;
 		}
 		
-		.meta .icon:hover { opacity: 0.6; }
+		.meta .actions { float: right; }
+		.meta .actions span { padding-left: 5px; }
+		.meta .actions span:last-child { padding-left: 4px; }
+		.meta span .icon { padding-right: 2px; }
+		.rated .meta .actions { padding-right: 57px; }
 		
-		.meta span { padding-left: 7px; position: relative; top: 1px; }
-		.meta span:last-child { padding-left: 2px; }
-		
-		.meta span .icon { padding-right: 0; opacity: 0.6; }
-		.meta span .icon:hover { padding-right: 0; opacity: 1; }
-
 	/* =user-actions */
 	
 		.user-actions {
@@ -189,7 +199,7 @@
 			height: 64px;
 			width: 48px;
 			font-size: 20px;
-			display: block;
+			display: none;
 			position: absolute;
 			line-height: 55px;
 			top: -6px; right: 18px;
@@ -201,8 +211,6 @@
 			background: url(../images/icons/ribbon.png) no-repeat top left;
 		}
 		
-		.idea .no-score { display: none; }
-		
 		.idea .score span { 
 			display: block; 
 			position: absolute; 
@@ -212,6 +220,8 @@
 			width: 40px;
 			padding-left: 8px;
 		}
+		
+		.rated .score { display: block; }
 	
 	/* =claim */
 	

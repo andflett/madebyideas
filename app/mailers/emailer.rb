@@ -28,13 +28,14 @@ class Emailer < ActionMailer::Base
     end
    
    if user.nil?
-     #puts 'No user exists with that email address'
+     puts 'No user exists with that email address'
    else 
        @post = user.posts.create!(
          :title => truncate(mail.subject,:length => 90),
          :body => body,
          :users_id => user.id
        )
+       puts 'Posting'
   end
   
  end

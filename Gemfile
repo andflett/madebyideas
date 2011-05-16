@@ -10,7 +10,7 @@ gem 'twitter_oauth'
 gem 'devise-twitter'
 gem 'bitly'
 gem 'dynamic_form'
-gem 'profanity_filter'
+gem 'profanalyzer'
 
 # To use debugger (ruby-debug for Ruby 1.8.7+, ruby-debug19 for Ruby 1.9.2+)
 # gem 'ruby-debug'

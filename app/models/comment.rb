@@ -6,7 +6,7 @@ class Comment < ActiveRecord::Base
    validate :throttle_posts
 
    def throttle_posts
-     @transactions = Post.find_by_sql(["SELECT * FROM comments WHERE 
+     @transactions = Comment.find_by_sql(["SELECT * FROM comments WHERE 
                      users_id = ? and
                      created_at < ? and
                      created_at > ?",

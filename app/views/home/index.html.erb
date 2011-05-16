@@ -1,3 +1,12 @@
+<section id="filters"><% if current_user
+    @claimed = Post.find_by_owner_id(current_user.id)
+    unless @claimed.nil?
+%>
+<p id="claimed_id">You are working on an <%= link_to('idea', "#{posts_path}/#{@claimed.id}") %> from 
+    <%= link_to @claimed.user.username, "#{posts_path}/user/#{@claimed.user.id}" %></p>
+<% end
+end %></section>
+
 <% @posts.each do |post| %>
     <% @post = post 
        @type = 'list'
@@ -6,5 +15,5 @@
 <% end %>
 
 <% if @posts.next_page %>
-<p class="cta"><a href="/posts?page=<%=@posts.next_page%>" data-remote="true" id="load_more">More ideas...</a></p>
+<p class="cta"><a href="/posts?page=<%=@posts.next_page%>" data-remote="true" id="load_more">Load more ideas&hellip;</a></p>
 <% end %>

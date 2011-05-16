@@ -1,4 +1,11 @@
 class Post < ActiveRecord::Base
+  require 'bitly'
+  
+  def truncate(text, options = {})
+    options.reverse_merge!(:length => 30)
+    text.truncate(options.delete(:length), options) if text
+  end
+  
   cattr_reader :per_page
   @@per_page = 20
   
@@ -7,15 +14,16 @@ class Post < ActiveRecord::Base
   has_many :comments, :foreign_key => "posts_id", :order => "created_at DESC"
   has_many :raters, :through => :ratings, :source => :users
   
-  validates_presence_of :title, :message => "error: You've not told us anything about your idea"
+  validates_presence_of :title, :message => "missing. You need to tell us anything about your idea"
   validates_length_of :title, :maximum => 90, :message => "Try to keep your idea to under 90 characters."
   validate :throttle_posts
-    
-  require 'bitly'
-
-  def truncate(text, options = {})
-    options.reverse_merge!(:length => 30)
-    text.truncate(options.delete(:length), options) if text
+  validate :validate_not_profane
+  
+  before_create :format_for_publish
+  
+  def format_for_publish
+    self.title = self.title.gsub("@","[at]")
+    self.title = self.title.gsub(/\b((https?:\/\/|ftps?:\/\/|mailto:|www\.)([A-Za-z0-9_=%&@\?\.\/\-]+))\b/,"")
   end
   
   def publish 
@@ -31,14 +39,14 @@ class Post < ActiveRecord::Base
     bitly = Bitly.new('madebyideas','R_43befe59f7f836397f08ab3c5c5bbf90')
     page_url = bitly.shorten("http://byideas.co.uk/i#{self.id}",:history => 1)
 
-    #client.update("Idea: #{@short_title} #{page_url.shorten}")
+    client.update("Idea: #{@short_title} #{page_url.shorten}")
     
     self.update_attribute(:published, true)
     
   end
   
   def publish_queue
-    @posts = Post.find_all_by_published(false)
+    @posts = Post.find_all_by_published_and_deleted(false,false)
     @posts.each do |post|
       post.publish
     end
@@ -46,16 +54,22 @@ class Post < ActiveRecord::Base
   
   def throttle_posts
     @transactions = Post.find_by_sql(["SELECT * FROM posts WHERE 
-                    users_id = ? and
-                    created_at < ? and
-                    created_at > ?",
-                    user.id,
-                    Time.now,
-                    5.minutes.ago
+        users_id = ? and
+        created_at < ? and
+        created_at > ?",
+        user.id,
+        Time.now,
+        5.minutes.ago
     ])
     if @transactions.count > 3
       errors[:base] << "You've published too many ideas recently, try again in a few minutes."
     end
+  end
+  
+  def validate_not_profane
+    Profanalyzer.tolerance = 2
+    Profanalyzer.check_all = true
+    errors[:base] << 'Your idea must not contain any profanities.' if Profanalyzer.profane?(self.title) or Profanalyzer.profane?(self.body)
   end
   
   def total_rating

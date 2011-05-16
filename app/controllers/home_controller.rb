@@ -2,7 +2,8 @@ class HomeController < ApplicationController
   
   def index
     
-    @posts = Post.paginate :page => params[:page], 
+    @posts = Post.paginate :page => params[:page],
+    :conditions => ['deleted = false'],
     :joins => "left join ratings r on posts.id = r.post_id", 
     :group => 'posts.id',
     :order => 'sum(r.value) DESC, posts.id DESC'

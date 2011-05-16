@@ -1,7 +1,11 @@
-<section class="idea <%= @type %> <%= @post.status %> <%=  " inactive " unless current_user %> <%=  " current-work " if current_user.try(:id) == @post.owner_id %>" id="idea-<%= @post.id %>" data-rating="<%= @post.total_rating %>">
+<section class="idea <% if @post.total_rating > 0 %>rated<% end %> <%= @type %> <%= @post.status %> <%=  " inactive " unless current_user %> <%=  " current-work " if current_user && current_user.try(:id) == @post.owner_id %>" id="idea-<%= @post.id %>" data-rating="<%= @post.total_rating %>">
 	
 	<p class="meta">
+	    <% if @post.owner_id == current_user.id && current_user.id != @post.user.id %>
+	    <%= link_to "Discuss", "/i#{@post.id}", :title => "Discuss", :class => "icon discuss" %>
+	    <% else %>
 		<%= link_to "Permalink", "/i#{@post.id}", :title => "Permalink", :class => "icon permalink" %>
+		<% end %>
 		<% if current_user and @post.user.id == current_user.id %>
       	This is <%= link_to "your", "#{posts_path}/user/#{@post.user.id}", :title=> "View your profile" %> idea from <%= @post.updated_at.to_s(:article) %>
     	<% elsif current_user && @post.status == 'owned' && @post.owner_id == current_user.id %>
@@ -9,11 +13,25 @@
     	<% else %>
 		Idea occurred on <%= @post.updated_at.to_s(:article) %>
 		<% end %>
+		
 		<% if current_user %>
+		<span class="actions">
+		    <span class="control">
+		        <% if @post.flagged && !current_user.admin %>
+		        <span class="icon flag flagged" title="This idea has been reported as inappropriate and is being reviewed.">Flagged</span>
+		        <% elsif @post.flagged && current_user.admin %>
+		        <%= link_to 'Remove flag', "/posts/#{@post.id}/flag", :confirm => 'Are you sure you\'ve reviewed this post and wish to unflag it?', :class => 'icon flag flagged', :title => 'Remove flag', :remote => true %>
+		        <% else %>
+		        <%= link_to 'Flag', "/posts/#{@post.id}/flag", :confirm => 'Are you sure you want to report this idea as inappropriate?', :class => 'icon flag', :title => 'Flag as inappropriate', :remote => true %>
+		        <% end %>
+		    </span>
 			<% if @post.user.id == current_user.id %>
 			<span class="control"><%= link_to "Edit", edit_post_path(@post.id), :class => "icon edit", :title => 'Edit' %></span>
-			<span class="control"><%= link_to 'Delete', @post, :confirm => 'Are you sure you want to delete this idea?', :method => :delete, :class => 'icon delete', :title => 'Delete' %></span>
+			<span class="control"><%= link_to 'Delete', @post, :confirm => 'Are you sure you wish to permanently delete this idea?', :method => :delete, :class => 'icon delete', :title => 'Delete' %></span>
+			<% elsif current_user.admin %>
+			<span class="control"><%= link_to 'Remove', "/posts/#{@post.id}/remove", :confirm => 'Are you sure you wish to temporarily remove this idea?', :class => 'icon delete', :title => 'Remove', :remote => true %></span>
 			<% end %>
+		</span>
 		<% end %>
     </p>    
 	
@@ -30,7 +48,7 @@
 	</article>
 	<% end %>
 
-	<p class="score <% if @post.total_rating <= 0 %>no-score<% end %>">This idea is liked by <span><%= @post.total_rating %></span> people</p>
+	<p class="score">This idea is liked by <span><%= @post.total_rating %></span> people</p>
 
 	<aside>
 		<% if current_user %>
@@ -51,6 +69,10 @@
 			<% end %>
 		</p>
 		<% else %>
+		<% if @post.status == 'owned' %>
+		<% @owner = User.find(@post.owner_id) %>
+		<p class="claim">This idea has been claimed by <%= @owner.username %></p>
+		<% end %>
 		<p><%= link_to "Sign in", new_user_session_path, :remote => 'true' %> to rate or claim this idea</p>
 		<% end %>
 	</aside>

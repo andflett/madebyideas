@@ -6,9 +6,9 @@ $('#idea-<%= params[:id] %> .score span').fadeOut('fast',function() {
 });
 
 <% if @post.total_rating <= 0 %>
-$('#idea-<%= params[:id] %> .score').addClass('no-score');
+$('#idea-<%= params[:id] %>').removeClass('rated');
 <% else %>
-$('#idea-<%= params[:id] %> .score').removeClass('no-score');
+$('#idea-<%= params[:id] %>').addClass('rated');
 <% end %>
 
 <% if params[:rating] == '0' %>

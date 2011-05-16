@@ -1,7 +1,7 @@
 <% if @notification.action == 'claim' and @notification.controller == 'posts' %>
 Hi <%= @owner.username %>,
 
-We thought you'd like to know that <%= @started_by.username %>
+We thought you'd like to know that <%= @action_by.username %>
 <% if @notification.value == 'owned' %>
 has decided to start work on the following idea:
 <% else %>
@@ -16,12 +16,20 @@ You can view the full idea at http://byideas.co.uk/i<%= @post.id %>
 <% elsif @notification.action == 'create' and @notification.controller == 'comments' %>
 Hi <%= @owner.username %>,
 
-We thought you'd like to know that <%= @started_by.username %>
+We thought you'd like to know that <%= @action_by.username %>
 has left a comment on the following idea:
 
 "<%= @post.title %>"
 
 You can view the comment and full discussion at http://byideas.co.uk/i<%= @post.id %>
+
+- Made by Ideas
+<% elsif @notification.controller == 'posts' and @notification.action == 'toggle_flagged' %>
+<%=  @action_by.username %> has flagged the idea below as inappropriate:
+
+"<%= @post.title %>"
+
+You can review and remove, or unflag, the idea here: http://byideas.co.uk/i<%= @post.id %>
 
 - Made by Ideas
 <% else %>

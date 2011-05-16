@@ -68,7 +68,7 @@ GEM
       faraday (~> 0.6.1)
       multi_json (>= 0.0.5)
     polyglot (0.3.1)
-    profanity_filter (0.0.2)
+    profanalyzer (1.0.0)
     rack (1.2.1)
     rack-mount (0.6.13)
       rack (>= 1.0.0)
@@ -113,7 +113,7 @@ DEPENDENCIES
   dynamic_form
   mail
   mysql2
-  profanity_filter
+  profanalyzer
   rails (= 3.0.3)
   twitter_oauth
   will_paginate (~> 3.0.pre2)

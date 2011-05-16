@@ -1,12 +1,15 @@
 var top = false;
 
 <% @posts.each do |post| %>
-	<% @post = post %>
+	<% 
+	  @post = post
+	  @type = 'list'
+	%>
     $("#load_more").parent().before( "<%= escape_javascript( render( :partial => "idea" ) ) %>" );    
     if(!top) top = $("#idea-<%= post.id %>").offset().top;
 <% end %>
 
-if(!scrolling) $('html:not(:animated),body:not(:animated)').animate({ scrollTop: top-50 }, { duration:500 });
+if(!scrolling) $('html:not(:animated),body:not(:animated)').animate({ scrollTop: top-20 }, { duration:500 });
 pageBottom = $(document).height()-$(window).height()-$('footer:last').outerHeight()-20;
 scrolling = false;
 

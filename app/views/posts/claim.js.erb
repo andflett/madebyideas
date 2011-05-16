@@ -3,7 +3,7 @@ $('#idea-<%= params[:id] %>').removeClass('owned');
 $('#idea-<%= params[:id] %>').addClass('<%= @post.status %>');
 
 $('.idea').removeClass('current-work');
-
+// TODO UPDATE CLAIMED_ID
 <% if @post.status == 'owned' %>
 
   <% if @post.owner_id == current_user.id %>
