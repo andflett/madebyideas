@@ -11,10 +11,13 @@ class User < ActiveRecord::Base
   # :token_authenticatable, :confirmable, :lockable and :timeoutable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
-
-  # Setup accessible (or protected) attributes for your model
-  attr_accessible :email, :password, :password_confirmation, :remember_me, :username
   
+  attr_accessor :login
+  
+  # Setup accessible (or protected) attributes for your model
+  attr_accessible :email, :password, :password_confirmation, :remember_me, :username, :login
+  
+
   has_many :posts, :dependent => :destroy, :foreign_key => "posts_id"
   has_many :ratings, :dependent => :destroy
   has_many :rated_posts, :through => :ratings, :source => :posts
@@ -25,5 +28,13 @@ class User < ActiveRecord::Base
   def password_required?
     new_record?
   end
+  
+  protected
+
+   def self.find_for_database_authentication(warden_conditions)
+     conditions = warden_conditions.dup
+     login = conditions.delete(:login)
+     where(conditions).where(["lower(username) = :value OR lower(email) = :value", { :value => login.downcase }]).first
+   end
   
 end

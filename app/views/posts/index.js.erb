@@ -10,7 +10,7 @@ var top = false;
 <% end %>
 
 if(!scrolling) $('html:not(:animated),body:not(:animated)').animate({ scrollTop: top-20 }, { duration:500 });
-pageBottom = $(document).height()-$(window).height()-$('footer:last').outerHeight()-20;
+pageBottom = $(document).height()-$(window).height()-$('footer:last').outerHeight()-100;
 scrolling = false;
 
 foldArticles();

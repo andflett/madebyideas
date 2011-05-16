@@ -1,7 +1,7 @@
 <section class="idea <% if @post.total_rating > 0 %>rated<% end %> <%= @type %> <%= @post.status %> <%=  " inactive " unless current_user %> <%=  " current-work " if current_user && current_user.try(:id) == @post.owner_id %>" id="idea-<%= @post.id %>" data-rating="<%= @post.total_rating %>">
 	
 	<p class="meta">
-	    <% if @post.owner_id == current_user.id && current_user.id != @post.user.id %>
+	    <% if current_user && @post.owner_id == current_user.id && current_user.id != @post.user.id %>
 	    <%= link_to "Discuss", "/i#{@post.id}", :title => "Discuss", :class => "icon discuss" %>
 	    <% else %>
 		<%= link_to "Permalink", "/i#{@post.id}", :title => "Permalink", :class => "icon permalink" %>

@@ -6,7 +6,7 @@
   <script type="text/javascript" src="/javascripts/global.js"></script>
   <%= stylesheet_link_tag "layout" %>
   <%= csrf_meta_tag %>
-  <%= auto_discovery_link_tag(:rss, {:controller => "posts", :format => "rss" }) %>
+  <%= auto_discovery_link_tag(:rss, "http://made.byideas.co.uk/rss") %>
   <link rel="shortcut icon" href="/favicon.ico" />
 </head>
 <body id="<%= controller_name %>">
