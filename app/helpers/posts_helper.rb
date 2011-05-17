@@ -6,4 +6,9 @@ module PostsHelper
           false
       end
   end
+  
+  def can_view_private_conversation
+    current_user and (current_user.id == @post.users_id or current_user.id == @post.owner_id)
+  end
+  
 end

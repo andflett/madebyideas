@@ -19,9 +19,17 @@ class CommentsController < ApplicationController
   end
 
   def create
+    
+    if params[:private]=="false"
+      params[:private] = false
+    else
+      params[:private] = true
+    end
+    
     @comment = Comment.new(params[:comment])
     @comment.user = current_user
     @notifications = Notification.new()
+
     respond_to do |format|
       if @comment.save
          @notifications.queue_notification(action_name,controller_name,current_user.id,@comment.post.id,@comment.comment)

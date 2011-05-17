@@ -1,4 +1,12 @@
-<section id="filters"><% if current_user
+<section id="filters">
+
+<ul class="toggler availability">
+    <li data-type='available' <%  if params[:type].nil? %>class="active"<% end %>><%= link_to "Available", "/?switch=true", :remote => true %></li>
+    <li data-type='progress' <%  if params[:type] == 'progress' %>class="active"<% end %>><%= link_to "In progress", "/home/progress?switch=true", :remote => true %></li>
+    <li data-type='complete' <%  if params[:type] == 'complete' %>class="active"<% end %>><%= link_to "Complete", "/home/complete?switch=true", :remote => true %></li>
+</ul>
+
+<% if current_user
     @claimed = Post.find_by_owner_id(current_user.id)
     unless @claimed.nil?
 %>
@@ -15,5 +23,5 @@ end %></section>
 <% end %>
 
 <% if @posts.next_page %>
-<p class="cta"><a href="/posts?page=<%=@posts.next_page%>" data-remote="true" id="load_more">Load more ideas&hellip;</a></p>
+<p class="cta"><a href="/?page=<%=@posts.next_page%>&amp;type=<%= params[:type] %>" data-remote="true" id="load_more">Load more ideas&hellip;</a></p>
 <% end %>

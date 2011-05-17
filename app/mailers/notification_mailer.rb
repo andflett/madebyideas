@@ -11,14 +11,18 @@ class NotificationMailer < ActionMailer::Base
 
       if (notification.controller == 'posts' and notification.action == 'toggle_flagged')
         @to = 'andrew@madebymany.co.uk'
-      elsif (notification.controller == 'posts')
-        @to = @owner.email
       elsif(notification.controller == 'comments')
         if (@action_by.id == @owner.id && !@post.owner_id.nil?)
-          @to = User.find(@post.owner_id).email 
-        else
-          @to = @owner.email 
+          @owner = User.find(@post.owner_id)
         end
+        @to = @owner.email 
+      elsif(notification.controller == 'posts' and notification.action == 'toggle_completed')
+        if (@action_by.id == @owner.id && !@post.owner_id.nil?)
+          @owner = User.find(@post.owner_id)
+        end
+        @to = @owner.email 
+      elsif (notification.controller == 'posts')
+        @to = @owner.email
       end
 
       @notification = notification

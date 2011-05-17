@@ -100,13 +100,10 @@ function foldArticles() {
 		$(this).bind('mouseout',function(){ $(this).find('.control').hide(); });
 
 	});
-	
-  $('.owned:not(.current-work)').each(function(){
-    $(this).bind('mouseover',function(){ $(this).css({opacity: 0.9}) });
-    $(this).bind('mouseout',function(){ $(this).attr({style:''}) });
-  });
   
 }
+
+var pop = true
 
 $(document).ready(function(){	
 
@@ -129,23 +126,17 @@ $(document).ready(function(){
 
   /* Fold articles */
   foldArticles();
-
-  /* Init filters */
-  $('#filters').prepend('<ul class="toggler availability"><li><a data-type="available" href="/">Available ideas</a></li><li><a data-type="all" href="/">All ideas</a></li></ul>');
-  $('#home .owned').not('.current-work').not('.single').hide();
-  $('.availability a[data-type="available"]').parent().addClass('active');
-  $('.availability a').click(function(e){
-    $(this).parent().siblings().removeClass('active');
-    $(this).parent().addClass('active');
-    if($(this).attr('data-type')=='available') {
-      $('.owned').not('.current-work').hide();
-    } else if($(this).attr('data-type')=='all') {
-      $('.owned').not('.current-work').show();
-    }
-    return false;
-  });
-
-
+  
+  /* Hacky McHackingston */
+  if(Modernizr.history) {
+      window.onpopstate = function(event) {
+        pop = false;
+        type = location.pathname.split('/home/')
+        if(type[1]) $('.availability li[data-type="'+type[1]+'"] a').trigger('click');
+        if(type[0]=='/') $('.availability li[data-type="available"] a').trigger('click');
+      };
+  }
+  
 });
 
 $(window).load(function(){  

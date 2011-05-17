@@ -1,11 +1,10 @@
 <article class="comment" id="comment-<%= comment.id %>">
     <p class="meta">
         From <%= link_to comment.user.username, "#{posts_path}/user/#{comment.post.user.id}", :title=> "View #{comment.post.user.username}'s profile" %> on <%= comment.updated_at.to_s(:article) %>
-    	<% if comment.user.id == current_user.id %>
+    	<% if current_user and comment.user.id == current_user.id %>
     		<span class="control"><%= link_to "Edit", edit_comment_path(comment.id), :class => "icon edit", :title => 'Edit' %></span>
     		<span class="control"><%= link_to 'Delete', comment, :confirm => 'Are you sure you want to delete this comment?', :method => :delete, :class => 'icon delete', :title => 'Delete' %></span>
     	<% end %>
     </p>
-
     <%= simple_format(comment.comment) %>
 </article>

@@ -96,7 +96,7 @@
 		section#content { 
 		    display: block; padding-top: 25px; 
 		    border-top: 1px solid #ffffff;
-		    padding-bottom: 20px;
+		    padding-bottom: 15px;
     }
     
     section.error { margin-bottom: 20px; }
@@ -113,7 +113,7 @@
       text-align: right;
       font-size: 0.625em;
       padding-right: 19px;
-      line-height: 26px;
+      line-height: 28px;
       background: url(../images/icons/claimed.png) no-repeat 99% 6px;
     }
 

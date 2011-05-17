@@ -1,1 +1,0 @@
-$('#idea-<%= params[:id] %>').fadeOut();

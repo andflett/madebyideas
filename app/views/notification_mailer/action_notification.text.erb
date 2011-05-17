@@ -5,7 +5,7 @@ We thought you'd like to know that <%= @action_by.username %>
 <% if @notification.value == 'owned' %>
 has decided to start work on the following idea:
 <% else %>
-has given up on the following idea:
+has released and is no longer working on the following ideas:
 <% end %>
 
 "<%= @post.title %>"
@@ -21,7 +21,22 @@ has left a comment on the following idea:
 
 "<%= @post.title %>"
 
-You can view the comment and full discussion at http://byideas.co.uk/i<%= @post.id %>
+Comment:
+
+"<%= @notification.value %>"
+
+You can view the full discussion at http://byideas.co.uk/i<%= @post.id %>
+
+- Made by Ideas
+<% elsif @notification.action == 'toggle_completed' and @notification.controller == 'posts' %>
+Hi <%= @owner.username %>,
+
+We thought you'd like to know that <%= @action_by.username %>
+has marked the following idea '<% if @notification.value == '1' %>complete<% else %>in progress<% end %>':
+
+"<%= @post.title %>"
+
+You can view the idea at http://byideas.co.uk/i<%= @post.id %>
 
 - Made by Ideas
 <% elsif @notification.controller == 'posts' and @notification.action == 'toggle_flagged' %>

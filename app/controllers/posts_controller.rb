@@ -22,6 +22,10 @@ class PostsController < ApplicationController
       redirect_to("#{posts_path}/#{@post.id}")
     end
   end
+  
+  def can_view_private_conversation
+    current_user and (current_user.id == @post.users_id or current_user.id == @post.owner_id)
+  end
    
   def index
     
@@ -50,7 +54,10 @@ class PostsController < ApplicationController
         respond_to do |format|
             format.html { render :layout => true }
             format.js { render :layout => false }
-            format.rss { render :layout => false } 
+            format.rss { 
+              @posts = Post.all(:order => 'created_at desc')
+              render :layout => false 
+            } 
         end
     end
     
@@ -68,6 +75,8 @@ class PostsController < ApplicationController
     unless @post.owner_id.nil?
       @owner = User.find(@post.owner_id)
     end
+    
+    @public_comments = Comment.find_by_posts_id_and_private(@post.id,false)
     
     respond_to do |format|
         format.html { render :layout => true }
@@ -169,6 +178,37 @@ class PostsController < ApplicationController
     end
     
   end
+  
+  def toggle_completed
+    
+    @notifications = Notification.new();
+    @post = Post.find(params[:id])
+    
+    if can_view_private_conversation
+    
+      if params[:status] == '0'
+        @post.update_attribute(:completed, false)
+        @post.save
+      elsif params[:status] == '1'
+        @post.update_attribute(:completed, true)
+        @post.save
+      end
+    
+      @notifications.queue_notification(
+        action_name,
+        controller_name,
+        current_user.id,
+        @post.id,
+        @post.completed
+      )
+    
+    end
+    
+    respond_to do |format|
+      format.js { render :layout => false }
+    end
+    
+  end
 
   def rate
     @post = Post.find(params[:id])
@@ -207,7 +247,9 @@ class PostsController < ApplicationController
         @post_claimed.update_attribute(:status, 'open')
         @post_claimed.update_attribute(:owner_id, nil)
         @post_claimed.save
-        @notifications.queue_notification(action_name,controller_name,current_user.id,@post_claimed.id,@post_claimed.status)
+        unless @post_claimed.completed and @post_claimed.status == 'open'
+          @notifications.queue_notification(action_name,controller_name,current_user.id,@post_claimed.id,@post_claimed.status)
+        end
       end
     elsif @post.status == 'owned'
       @post.update_attribute(:status, 'open')
@@ -215,7 +257,9 @@ class PostsController < ApplicationController
       @post.save
     end
     
-    @notifications.queue_notification(action_name,controller_name,current_user.id,@post.id,@post.status)
+    unless @post.completed and @post.status == 'open'
+      @notifications.queue_notification(action_name,controller_name,current_user.id,@post.id,@post.status)
+    end
     
     respond_to do |format|
       format.js { render :layout => false }
@@ -226,7 +270,11 @@ class PostsController < ApplicationController
   def destroy
     @post = Post.find(params[:id])
     @post.destroy
-    redirect_to(posts_path, :notice => 'Away it goes, never to return.')
+    respond_to do |format|
+      format.js { render :layout => false }
+      format.html { redirect_to(posts_path, :notice => 'Away it goes, never to return.') }
+    end
+    
   end
 
 private

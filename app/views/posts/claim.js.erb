@@ -4,21 +4,29 @@ $('#idea-<%= params[:id] %>').addClass('<%= @post.status %>');
 
 $('.idea').removeClass('current-work');
 
-// TODO UPDATE CLAIMED_ID
-
+$('#claimed_id').remove();
+<%
+@claimed = Post.find_by_owner_id(current_user.id)
+unless @claimed.nil?
+%>
+$('#home #filters').append('<p id="claimed_id">You are working on an <%= link_to('idea', "#{posts_path}/#{@claimed.id}") %> from <%= link_to @claimed.user.username, "#{posts_path}/user/#{@claimed.user.id}" %></p>');
+<% end %>
 
 <% if @post.status == 'owned' %>
-
+$('#idea-<%= params[:id] %> .fulltext').addClass('discuss').removeClass('permalink');
+$('#idea-<%= params[:id] %> .claim').removeClass('control');
   <% if @post.owner_id == current_user.id %>
   $('#idea-<%= params[:id] %>').addClass('current-work');
   $('#idea-<%= params[:id] %> .claim').show();
-  $('#idea-<%= params[:id] %> .claim').html('You\'ve claimed this idea. You can <%= link_to "discuss it", "/posts/#{@post.id}" %> or <%= link_to "release it", "/posts/#{@post.id}/claim", :remote => "true" %> if you\'re bored')
+  $('#idea-<%= params[:id] %> .claim').html('You\'ve claimed this idea. You can <%= link_to "discuss it", "/posts/#{@post.id}" %> or <%= link_to "release it", "/posts/#{@post.id}/claim", :remote => "true" %> if you\'re finished')
   <% else %>
   $('#idea-<%= params[:id] %> .claim').html('This idea has been claimed by <%= @owner.username %>')
   <% end %>
 
 <% else %>
 
+$('#idea-<%= params[:id] %> .claim').addClass('control');
+$('#idea-<%= params[:id] %> .fulltext').removeClass('discuss').addClass('permalink');
 $('#idea-<%= params[:id] %> .claim').addClass('control');
 $('#idea-<%= params[:id] %> .claim').html('This idea is open, you can <%= link_to "claim it", "/posts/#{@post.id}/claim", :remote => "true" %> for yourself')
 

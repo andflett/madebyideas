@@ -1,0 +1,68 @@
+$('.availability li').removeClass('active');
+
+<% if params[:type] == 'complete' %>
+if (Modernizr.history && pop) {
+    history.pushState({type:'complete'}, null, '/home/complete');
+    pop = true
+}
+$('.availability li[data-type="complete"]').addClass('active');
+<% elsif params[:type] == 'progress' %>
+if (Modernizr.history && pop) {
+     history.pushState({type:'progress'}, null, '/home/progress');
+     pop = true
+}
+$('.availability li[data-type="progress"]').addClass('active');
+<% else %>
+if (Modernizr.history && pop) { 
+    history.pushState({type:'available'}, null, '/');
+    pop = true
+}
+$('.availability li[data-type="available"]').addClass('active');
+<% end %>
+
+<% if params[:switch] %>
+$('.idea').remove();
+<% end %>
+$('.error').remove();
+
+var top = false;
+
+<% if @posts.count > 0 %>
+    <% @posts.each do |post| %>
+	<% 
+	  @post = post
+	  @type = 'list'
+	%>
+	
+	<% if params[:switch] %>
+    	<% if @posts.next_page %>
+    	$("#load_more").parent().before( "<%= escape_javascript( render( :partial => "posts/idea" ) ) %>" );
+    	<% else %>
+    	$("#content .container").append( "<%= escape_javascript( render( :partial => "posts/idea" ) ) %>" );
+        
+    	    
+    	<% end %>
+    <% else %>
+    $("#load_more").parent().before( "<%= escape_javascript( render( :partial => "posts/idea" ) ) %>" );
+    <% end %>
+    
+    if(!top) top = $("#idea-<%= post.id %>").offset().top; 
+    <% end %>
+<% else %>
+$("#filters").after("<p class='error'>Nothing to see here, move along&hellip;</p>");
+<% end %>
+
+<% unless params[:switch] %>
+if(!scrolling) $('html:not(:animated),body:not(:animated)').animate({ scrollTop: top-20 }, { duration:500 });
+<% end %>
+
+pageBottom = $(document).height()-$(window).height()-$('footer:last').outerHeight()-100;
+scrolling = false;
+
+foldArticles();
+
+<% if @posts.next_page %>
+    $('#load_more').attr({href:"/?page=<%=@posts.next_page%>&amp;type=<%= params[:type] %>"});
+<% else %>
+    $('#load_more').parent().remove();
+<% end %>

@@ -2,9 +2,9 @@
 	
 	<p class="meta">
 	    <% if current_user && @post.owner_id == current_user.id && current_user.id != @post.user.id %>
-	    <%= link_to "Discuss", "/i#{@post.id}", :title => "Discuss", :class => "icon discuss" %>
+	    <%= link_to "Discuss", "/i#{@post.id}", :title => "Discuss", :class => "icon fulltext discuss" %>
 	    <% else %>
-		<%= link_to "Permalink", "/i#{@post.id}", :title => "Permalink", :class => "icon permalink" %>
+		<%= link_to "Permalink", "/i#{@post.id}", :title => "Permalink", :class => "icon fulltext permalink" %>
 		<% end %>
 		<% if current_user and @post.user.id == current_user.id %>
       	This is <%= link_to "your", "#{posts_path}/user/#{@post.user.id}", :title=> "View your profile" %> idea from <%= @post.updated_at.to_s(:article) %>
@@ -27,7 +27,7 @@
 		    </span>
 			<% if @post.user.id == current_user.id %>
 			<span class="control"><%= link_to "Edit", edit_post_path(@post.id), :class => "icon edit", :title => 'Edit' %></span>
-			<span class="control"><%= link_to 'Delete', @post, :confirm => 'Are you sure you wish to permanently delete this idea?', :method => :delete, :class => 'icon delete', :title => 'Delete' %></span>
+			<span class="control"><%= link_to 'Delete', @post, :confirm => 'Are you sure you wish to permanently delete this idea?', :method => :delete, :class => 'icon delete', :title => 'Delete', :remote => true %></span>
 			<% elsif current_user.admin %>
 			<span class="control"><%= link_to 'Remove', "/posts/#{@post.id}/remove", :confirm => 'Are you sure you wish to temporarily remove this idea?', :class => 'icon delete', :title => 'Remove', :remote => true %></span>
 			<% end %>
@@ -60,7 +60,7 @@
 			<% if @post.status == 'owned' %>
 			<% @owner = User.find(@post.owner_id) %>
 				<% if @post.owner_id == current_user.id %>
-				  You've claimed this idea. You can <%= link_to "discuss it", "/posts/#{@post.id}" %> or <%= link_to "release it", "/posts/#{@post.id}/claim", :remote => "true" %> if you're bored
+				  You've claimed this idea. You can <%= link_to "discuss it", "/posts/#{@post.id}" %> or <%= link_to "release it", "/posts/#{@post.id}/claim", :remote => "true" %> if you're finished
 				<% else %>
 				  This idea has been claimed by <%= @owner.username %>
 				<% end %>
@@ -73,7 +73,7 @@
 		<% @owner = User.find(@post.owner_id) %>
 		<p class="claim">This idea has been claimed by <%= @owner.username %></p>
 		<% end %>
-		<p><%= link_to "Sign in", new_user_session_path, :remote => 'true' %> to rate or claim this idea</p>
+		<p class="sign_in"><%= link_to "Sign in", new_user_session_path, :remote => 'true' %> to rate or claim this idea</p>
 		<% end %>
 	</aside>
 	

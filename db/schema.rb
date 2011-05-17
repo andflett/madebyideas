@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110515095332) do
+ActiveRecord::Schema.define(:version => 20110516120109) do
 
   create_table "comments", :force => true do |t|
     t.text     "comment"
@@ -18,6 +18,7 @@ ActiveRecord::Schema.define(:version => 20110515095332) do
     t.integer  "posts_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "private",    :default => true
   end
 
   create_table "notifications", :force => true do |t|
@@ -44,6 +45,7 @@ ActiveRecord::Schema.define(:version => 20110515095332) do
     t.boolean  "published",  :default => false
     t.boolean  "flagged",    :default => false
     t.boolean  "deleted",    :default => false
+    t.boolean  "completed",  :default => false
   end
 
   create_table "ratings", :force => true do |t|

@@ -1,0 +1,5 @@
+<% if @post.flagged %>
+$('#idea-<%= params[:id] %> .flag').addClass('flagged');
+<% else %>
+$('#idea-<%= params[:id] %> .flag').removeClass('flagged');
+<% end %>
