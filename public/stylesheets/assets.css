@@ -1,3 +1,18 @@
+/* page specific */
+
+  section#content h2 {
+    margin-bottom: 22px;
+    color: #a5a5a5;
+    font-size: 1em;
+  }
+
+  section.about h2 { padding-top: 7px; }
+  section.about h2:first-child {
+    padding: 0;
+  }
+
+  section.about p { font-size: 0.75em; }
+
 /* =loading */
 
 		a.loading { opacity: 0.2; }
@@ -48,32 +63,32 @@
 /* =buttons */
 
    .button { 
-        padding: 6px 15px; color: #ffffff;
-        display: inline-block; margin: 0;
-        font-family: Arial, Helvetica, Sans-Serif;
-        text-shadow: 0 1px 0 rgba(1,1,1,0.7);
-        border: 1px solid rgba(1,1,1,0.2);
-        -webkit-border-radius: 4px; 
-        -moz-border-radius: 4px; 
-		    border-radius: 4px; 
-        line-height: 1.25em;
-        font-size: 12px; cursor: pointer;
-		    background-image: -webkit-gradient(
-            linear,
-            left top,
-            left bottom,
-            color-stop(0.86, rgb(186,39,37)),
-            color-stop(0.21, rgb(212,66,66))
+      padding: 6px 15px; color: #ffffff;
+      display: inline-block; margin: 0;
+      font-family: Arial, Helvetica, Sans-Serif;
+      text-shadow: 0 1px 0 rgba(1,1,1,0.7);
+      border: 1px solid rgba(1,1,1,0.2);
+      -webkit-border-radius: 4px; 
+      -moz-border-radius: 4px; 
+      border-radius: 4px; 
+      line-height: 1.25em;
+      font-size: 12px; cursor: pointer;
+      background-image: -webkit-gradient(
+          linear,
+          left top,
+          left bottom,
+          color-stop(0.86, rgb(186,39,37)),
+          color-stop(0.21, rgb(212,66,66))
+      );
+      background-image: -moz-linear-gradient(
+        center bottom,
+        rgb(186,39,37) 21%,
+        rgb(212,66,66) 86%
         );
-		    background-image: -moz-linear-gradient(
-			    center bottom,
-			    rgb(186,39,37) 21%,
-			    rgb(212,66,66) 86%
-		      );
-		    background-color: #ca4c4d;
-        -webkit-box-shadow: 0px 1px 0px rgba(127,36,36,1);
-        -moz-box-shadow: 0px 1px 0px rgba(127,36,36,1);
-		    box-shadow: 0px 1px 0px rgba(127,36,36,1);
+      background-color: #ca4c4d;
+      -webkit-box-shadow: 0px 1px 0px rgba(127,36,36,1);
+      -moz-box-shadow: 0px 1px 0px rgba(127,36,36,1);
+      box-shadow: 0px 1px 0px rgba(127,36,36,1);
     }
     
     .button:hover { text-decoration: none; }
@@ -100,11 +115,8 @@
 	.discuss { background-image: url(../images/icons/discuss.png); position: relative; top: 1px; }
   .flag { background-image: url(../images/icons/flag.png); }
   .flagged { background-image: url(../images/icons/flagged.png); opacity: 0.8; }
-
-  .rss {
-     height: 20px; width: 20px;
-     background-image: url(../images/icons/rss.png);
-   }
+  .tweet { background-image: url(../images/icons/tweet.png); }
+  .tweet:hover { background-image: url(../images/icons/tweeted.png); opacity: 1; }
 
 /* =new_post */
 
@@ -158,7 +170,7 @@
 	section#content .folded { cursor: pointer; }
 	
 	.idea article { 
-		margin-top: -1.325em; 
+		margin-top: -1.25em; 
 		padding-bottom: 20px;
 		font-size: 0.925em;
 	}
@@ -173,13 +185,11 @@
 		
 		.meta .icon { 
 			display: inline-block; 
-			padding-right: 5px;
+			padding-right: 4px;
 		}
 		
 		.meta .actions { float: right; }
-		.meta .actions span { padding-left: 5px; }
-		.meta .actions span:last-child { padding-left: 4px; }
-		.meta span .icon { padding-right: 2px; }
+    .meta .actions .tweet { padding-right: 6px; }
 		.rated .meta .actions { padding-right: 57px; }
 		
 	/* =user-actions */
@@ -313,7 +323,6 @@
   }
 
   .toggler li.active a { color: #fff; text-shadow: 0 1px 0 rgba(1,1,1,0.7); }
-
   .toggler li.active a:hover,
   .toggler li.active a:active,
   .toggler li.active a:focus {
@@ -356,7 +365,7 @@
   
   section#comments #idea-progress {
     float: right;
-    margin-bottom: 25px;
+    margin-bottom: 20px;
     width: auto;
   }
   
@@ -367,11 +376,13 @@
   section#comments article {
     border-bottom: 1px solid #eee;
     margin-bottom: 13px;
-    padding-bottom: 3px;
+    padding-bottom: 10px;
   }
   
   section#comments article p {
     margin-bottom: 0.5em;
+    padding-right: 70px;
+    font-size: 0.75em;
   }
   
   section#comments article:last-child {
@@ -379,9 +390,9 @@
     margin-bottom: 0;
   }
   
-  section#comments article .meta { margin-bottom: 6px; }
-  section#comments article .meta .icon { float: right; margin-right: 5px; }
-  section#comments section { width: 100%; clear: both; padding-bottom: 25px; }
+  section#comments article p.meta { margin-bottom: 6px; padding-right: 0; font-size: 0.625em; }
+  section#comments article .meta .icon { float: right; }
+  section#comments section { width: 100%; clear: both; padding-bottom: 22px; }
   section#comments form { padding-bottom: 0px; }
   
   section#comments form label span { 
@@ -408,3 +419,4 @@
     padding-left: 14px;
     font-size: 0.625em;
   }
+  

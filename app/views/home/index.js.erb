@@ -27,26 +27,29 @@ $('.error').remove();
 
 var top = false;
 
+<% if @posts.next_page %>
+    if ($("#load_more").length==0) {
+        $("#content .container").append('<p class="cta"><a href="/?page=<%=@posts.next_page%>&amp;type=<%= params[:type] %>" data-remote="true" id="load_more">Load more ideas&hellip;</a></p>');
+    }
+<% end %>
+
 <% if @posts.count > 0 %>
     <% @posts.each do |post| %>
 	<% 
 	  @post = post
 	  @type = 'list'
 	%>
-	
 	<% if params[:switch] %>
     	<% if @posts.next_page %>
-    	$("#load_more").parent().before( "<%= escape_javascript( render( :partial => "posts/idea" ) ) %>" );
+    	    $("#load_more").parent().before( "<%= escape_javascript( render( :partial => "posts/idea" ) ) %>" );
     	<% else %>
-    	$("#content .container").append( "<%= escape_javascript( render( :partial => "posts/idea" ) ) %>" );
-        
-    	    
+    	    $("#content .container").append( "<%= escape_javascript( render( :partial => "posts/idea" ) ) %>" ); 
     	<% end %>
     <% else %>
-    $("#load_more").parent().before( "<%= escape_javascript( render( :partial => "posts/idea" ) ) %>" );
+        $("#load_more").parent().before( "<%= escape_javascript( render( :partial => "posts/idea" ) ) %>" );
+        if(!top) top = $("#idea-<%= post.id %>").offset().top; 
     <% end %>
     
-    if(!top) top = $("#idea-<%= post.id %>").offset().top; 
     <% end %>
 <% else %>
 $("#filters").after("<p class='error'>Nothing to see here, move along&hellip;</p>");

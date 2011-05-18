@@ -14,8 +14,9 @@
 		Idea occurred on <%= @post.updated_at.to_s(:article) %>
 		<% end %>
 		
-		<% if current_user %>
 		<span class="actions">
+		    <span class="control"><a class="icon tweet" title="Share on Twitter" href="http://twitter.com/intent/tweet?url=http://byideas.co.uk/i<%= @post.id %>&amp;text=<%=u "Check out this idea @madebyideas" %>">Share on Twitter</a></span>
+		<% if current_user %>
 		    <span class="control">
 		        <% if @post.flagged && !current_user.admin %>
 		        <span class="icon flag flagged" title="This idea has been reported as inappropriate and is being reviewed.">Flagged</span>
@@ -31,8 +32,8 @@
 			<% elsif current_user.admin %>
 			<span class="control"><%= link_to 'Remove', "/posts/#{@post.id}/remove", :confirm => 'Are you sure you wish to temporarily remove this idea?', :class => 'icon delete', :title => 'Remove', :remote => true %></span>
 			<% end %>
-		</span>
 		<% end %>
+		</span>
     </p>    
 	
 	<% 

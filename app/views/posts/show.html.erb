@@ -1,7 +1,7 @@
 <% @type = 'single' %>
 <%= render :partial => 'idea' %>
 
-<% if (can_view_private_conversation) or !@public_comments.nil? %>
+<% if (can_view_private_conversation) or !@public_comments.nil? or (current_user && @post.completed_by == current_user.id) %>
     <section id="comments">
         
         <% if can_view_private_conversation %>
@@ -18,7 +18,7 @@
         
         <% 
             @post.comments.each do |comment|
-                if (comment.private && can_view_private_conversation) or !comment.private or (current_user && comment.user.id == current_user.id) %>
+                if (comment.private && can_view_private_conversation) or !comment.private or (current_user && (comment.user.id == current_user.id || @post.completed_by == current_user.id)) %>
                    <%= render :partial => 'comments/comment', :locals => { :comment => comment } %>
                 <% end
             end

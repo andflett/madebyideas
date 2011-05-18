@@ -2,7 +2,18 @@
 # See http://github.com/svenfuchs/rails-i18n/tree/master/rails%2Flocale for starting points.
 
 en:
-  hello: "Hello world"
+  idea:
+    claim: "This idea is open, you can claim it for your"
+    release: "You've claimed this idea. You can discuss it or release it if you're finished"
+    claimed_by: "This idea has been claimed by"
+    sign_in: "Sign in to claim or rate this idea"
+  comment:
+    private: "Post a private comment"
+    public: "Post a public comment"
+  index:
+    more: "Load more"
+    empty_dataset: "Nothing to see here, move along"
+    current_work: "You are working on an idea from"
   activerecord:
     attributes:
       user:  

@@ -188,9 +188,11 @@ class PostsController < ApplicationController
     
       if params[:status] == '0'
         @post.update_attribute(:completed, false)
+        @post.update_attribute(:completed_by, nil)
         @post.save
       elsif params[:status] == '1'
         @post.update_attribute(:completed, true)
+        @post.update_attribute(:completed_by, current_user.id)
         @post.save
       end
     
