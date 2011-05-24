@@ -15,11 +15,11 @@ class User < ActiveRecord::Base
   attr_accessor :login
   
   # Setup accessible (or protected) attributes for your model
-  attr_accessible :email, :password, :password_confirmation, :remember_me, :username, :login
+  attr_accessible :email, :password, :password_confirmation, :remember_me, :username, :login, :twitter_handle, :append_twitter_handle
   
-
   has_many :posts, :dependent => :destroy, :foreign_key => "posts_id"
   has_many :ratings, :dependent => :destroy
+  has_many :favourites, :dependent => :destroy
   has_many :rated_posts, :through => :ratings, :source => :posts
   has_many :comments, :dependent => :destroy, :foreign_key => "users_id"
 

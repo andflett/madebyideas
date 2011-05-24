@@ -24,7 +24,7 @@ function toggleControls(action,content,callback) {
 }
 
 function renderControl(action,content) {
-	$('html, body').animate({scrollTop:0}, 1000);
+  $('html, body').animate({scrollTop:0}, 1000);
     controlView.show();
     controlActionView.html(content);
     initForms();
@@ -37,7 +37,7 @@ function renderControl(action,content) {
 }
 
 function initForms() {
-  
+
     $('input[data-max-chars]').each(function(){
       count = $(this).val().length;
       limit = $(this).attr('data-max-chars');
@@ -46,19 +46,19 @@ function initForms() {
       $(this).bind('keyup',function(){
         count = $(this).val().length;
         if (count > limit) {
-        		$(this).val($(this).val().substring(0, limit));
-        	} else {
-        		limitCount.text('Characters remaining: '+(limit-count));
-        	}
+            $(this).val($(this).val().substring(0, limit));
+          } else {
+            limitCount.text('Characters remaining: '+(limit-count));
+          }
       });
     });
-  
+
     $('label.text').each(function(){
         $(this).addClass('compact');
-        
+
         label = $(this).find('span');
         label.bind('click',function() { $(this).parent().find('input, textarea').focus();});
-        
+
         input = $(this).find('input, textarea');
         if(input.length!=0) {
             if(input.val().length!=0) {
@@ -79,27 +79,27 @@ function initForms() {
 
 function foldArticles() {
  
-	$('.idea').not('.folded').each(function(){
-		
-		if($(this).hasClass('list') && $(this).find('article').length>0) {
-			$(this).addClass('folded');
-			$(this).find('article').hide();
-			$(this).click(function(e){
-			  if (!$(e.target).is('a')) {
-			  	if($(this).find('article').is(':visible')) {
-  					$(this).find('article').slideUp();
-  				} else { 
-  					$(this).find('article').slideDown();
-  				}
-			  }
-			});
-		}
-	
-		$(this).find('.control').hide();
-		$(this).bind('mouseover',function(){ $(this).find('.control').show(); });
-		$(this).bind('mouseout',function(){ $(this).find('.control').hide(); });
+  $('.idea').not('.folded').each(function(){
 
-	});
+  if($(this).hasClass('list') && $(this).find('article').length>0) {
+    $(this).addClass('folded');
+    $(this).find('article').hide();
+    $(this).click(function(e){
+      if (!$(e.target).is('a')) {
+        if($(this).find('article').is(':visible')) {
+          $(this).find('article').slideUp();
+        } else { 
+          $(this).find('article').slideDown();
+        }
+      }
+    });
+  }
+
+    $(this).find('.control').hide();
+    $(this).bind('mouseover',function(){ $(this).find('.control').show(); });
+    $(this).bind('mouseout',function(){ $(this).find('.control').hide(); });
+
+  });
   
 }
 
@@ -141,22 +141,22 @@ $(document).ready(function(){
 
 $(window).load(function(){  
     
-	/* Flash any errors/alerts/notices on page load */
-	if(controlNoticeView.length!=0) {
-	    controlView.show();
-	    controlNoticeView.slideDown(700);
-	    controlNoticeView.delay(2000).slideUp(700,function(){
-	        if(!controlActionView.is(':visible')) controlView.hide();    
-	    });
+  /* Flash any errors/alerts/notices on page load */
+  if(controlNoticeView.length!=0) {
+    controlView.show();
+    controlNoticeView.slideDown(700);
+    controlNoticeView.delay(2000).slideUp(700,function(){
+      if(!controlActionView.is(':visible')) controlView.hide();    
+    });
   }
-  
+
   /* Lazy loading */
   pageBottom = $(document).height()-$(window).height()-$('footer:last').outerHeight()-20;
   $(window).scroll(function(){
-      if($(document).scrollTop() > pageBottom && !loading && $('#load_more').length!=0) {
-          scrolling = true;
-          $('#load_more').trigger('click');
-      }
+    if($(document).scrollTop() > pageBottom && !loading && $('#load_more').length!=0) {
+      scrolling = true;
+      $('#load_more').trigger('click');
+    }
   });
     
 });

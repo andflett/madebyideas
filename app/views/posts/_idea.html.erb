@@ -17,6 +17,18 @@
 		<span class="actions">
 		    <span class="control"><a class="icon tweet" title="Share on Twitter" href="http://twitter.com/intent/tweet?url=http://byideas.co.uk/i<%= @post.id %>&amp;text=<%=u "Check out this idea @madebyideas" %>">Share on Twitter</a></span>
 		<% if current_user %>
+    		<span class="control">
+    		    <% 
+    		    if @favourite = current_user.favourites.find_by_post_id(@post.id) 
+    		      @class = "favourite favourited"
+    		      @alt = "Remove star"
+    		    else
+    		      @class = "favourite"
+    		      @alt = "Star this idea"
+    		    end  
+    		      %>
+            <%= link_to "#{@alt}", "/posts/#{@post.id}/favourite", :class => "icon #{@class}", :title => "#{@alt}", :remote => true %>
+        </span>
 		    <span class="control">
 		        <% if @post.flagged && !current_user.admin %>
 		        <span class="icon flag flagged" title="This idea has been reported as inappropriate and is being reviewed.">Flagged</span>

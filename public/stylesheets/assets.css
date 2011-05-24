@@ -117,6 +117,8 @@
   .flagged { background-image: url(../images/icons/flagged.png); opacity: 0.8; }
   .tweet { background-image: url(../images/icons/tweet.png); }
   .tweet:hover { background-image: url(../images/icons/tweeted.png); opacity: 1; }
+  .favourite { background-image: url(../images/icons/star.png); }
+  .favourite:hover, .favourited { background-image: url(../images/icons/starred.png); opacity: 1; }
 
 /* =new_post */
 
@@ -189,7 +191,7 @@
 		}
 		
 		.meta .actions { float: right; }
-    .meta .actions .tweet { padding-right: 6px; }
+		.meta .actions .favourite { padding-right: 5px; }
 		.rated .meta .actions { padding-right: 57px; }
 		
 	/* =user-actions */

@@ -10,7 +10,8 @@ class Post < ActiveRecord::Base
   @@per_page = 20
   
   belongs_to :user, :foreign_key => "users_id"
-  has_many :ratings
+  has_many :ratings, :dependent => :destroy
+  has_many :favourites, :dependent => :destroy
   has_many :comments, :foreign_key => "posts_id", :order => "created_at DESC"
   has_many :raters, :through => :ratings, :source => :users
   
@@ -22,7 +23,7 @@ class Post < ActiveRecord::Base
   before_create :format_for_publish
   
   def format_for_publish
-    self.title = self.title.gsub("@","[at]")
+    #self.title = self.title.gsub("@","[at]")
     self.title = self.title.gsub(/\b((https?:\/\/|ftps?:\/\/|mailto:|www\.)([A-Za-z0-9_=%&@\?\.\/\-]+))\b/,"")
   end
   
@@ -35,11 +36,21 @@ class Post < ActiveRecord::Base
         :secret => '6JvMz8y9hIYDOvpox6BLqgWB8GfdCJoaVm5xrfRm0'
     )
 
-    @short_title = truncate(self.title,:length => 90)
+    if !self.user.append_twitter_handle or self.user.twitter_handle.nil?
+      @max_title_length = 90
+    else 
+      @max_title_length = 85 - self.user.twitter_handle.length
+    end
+    
+    @short_title = truncate(self.title,:length => @max_title_length)
     bitly = Bitly.new('madebyideas','R_43befe59f7f836397f08ab3c5c5bbf90')
     page_url = bitly.shorten("http://byideas.co.uk/i#{self.id}",:history => 1)
-
-    client.update("Idea: #{@short_title} #{page_url.shorten}")
+    
+    if self.user.append_twitter_handle and !self.user.twitter_handle.nil?
+      client.update("Idea: #{@short_title} #{page_url.shorten} v/@#{self.user.twitter_handle}")
+    else 
+      client.update("Idea: #{@short_title} #{page_url.shorten}")
+    end
     
     self.update_attribute(:published, true)
     

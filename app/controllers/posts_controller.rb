@@ -1,5 +1,5 @@
 class PostsController < ApplicationController
-  before_filter :authenticate_user!, :only => [:new, :create, :edit, :update, :destroy, :rate, :claim, :toggle_flagged, :toggle_deleted]
+  before_filter :authenticate_user!, :only => [:new, :create, :edit, :update, :destroy, :rate, :claim, :toggle_flagged, :toggle_deleted, :starred, :favourite]
   before_filter :fetch_post, :only => [:edit, :update, :destroy]
   before_filter :authorise_as_owner, :only => [:edit, :update, :destroy]
      
@@ -32,6 +32,9 @@ class PostsController < ApplicationController
   	if params[:user]
   	  @user = User.find(params[:user])
   	  @conditions = ['users_id=? and deleted = false',"#{Integer(params[:user])}"]
+    elsif params[:f_user]
+    	@user = User.find(params[:f_user])
+    	@conditions = ['users_id=? and deleted = false and count(f) > 0',"#{Integer(params[:user])}"]
   	elsif params[:tag]
   	   @tag = params[:tag]
        @conditions = ['lower(title) LIKE ? and deleted = false',"%##{params[:tag].downcase}%"]
@@ -41,7 +44,7 @@ class PostsController < ApplicationController
     
     @posts = Post.paginate :page => params[:page], 
     :conditions => @conditions,
-    :joins => "left join ratings r on posts.id = r.post_id", 
+    :joins => "left join ratings r on posts.id = r.post_id left join favourites f on posts.id = f.post_id", 
     :group => 'posts.id',
     :order => 'sum(r.value) DESC, posts.id DESC'
     
@@ -61,6 +64,18 @@ class PostsController < ApplicationController
         end
     end
     
+  end
+  
+  def starred
+    
+  	@user = User.find(current_user.id)
+    @favourites = Favourite.find_all_by_user_id(current_user.id, :order => "updated_at desc")
+  
+    respond_to do |format|
+        format.html { render :layout => true }
+        format.js { render :layout => false }
+    end
+
   end
   
   def show
@@ -222,6 +237,23 @@ class PostsController < ApplicationController
       @rating.user_id = current_user.id
       @rating.value = params[:rating].to_i
       @rating.save
+    end
+    respond_to do |format|
+      format.js { render :layout => false }
+    end
+  end
+  
+  def favourite
+    @post = Post.find(params[:id])
+    if @favourite = current_user.favourites.find_by_post_id(params[:id])
+      @favourite.destroy
+      @favourited = false
+    else
+      @favourite = Favourite.new()
+      @favourite.post_id = @post.id
+      @favourite.user_id = current_user.id
+      @favourite.save
+      @favourited = true
     end
     respond_to do |format|
       format.js { render :layout => false }

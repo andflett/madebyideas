@@ -6,5 +6,6 @@
     		<span class="control"><%= link_to "Edit", edit_comment_path(comment.id), :class => "icon edit", :title => 'Edit' %></span>
     	<% end %>
     </p>
-    <%= simple_format(comment.comment) %>
+   	<% @content = simple_format(html_escape(comment.comment)) %>
+		<%= auto_link(@content) %>
 </article>

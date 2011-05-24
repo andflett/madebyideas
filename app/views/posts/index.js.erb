@@ -1,4 +1,4 @@
-var top = false;
+var topLocation = false;
 
 <% @posts.each do |post| %>
 	<% 
@@ -6,14 +6,14 @@ var top = false;
 	  @type = 'list'
 	%>
     $("#load_more").parent().before( "<%= escape_javascript( render( :partial => "idea" ) ) %>" );    
-    if(!top) top = $("#idea-<%= post.id %>").offset().top;
+    if(!topLocation) topLocation = $("#idea-<%= post.id %>").offset().top;
 <% end %>
 
-if(!scrolling) $('html:not(:animated),body:not(:animated)').animate({ scrollTop: top-20 }, { duration:500 });
+foldArticles();
+
+if(!scrolling) $('html:not(:animated),body:not(:animated)').animate({ scrollTop: topLocation-20 }, { duration:500 });
 pageBottom = $(document).height()-$(window).height()-$('footer:last').outerHeight()-100;
 scrolling = false;
-
-foldArticles();
 
 <% if @posts.next_page %>
     $('#load_more').attr({href:"/posts?page=<%=@posts.next_page%>"});

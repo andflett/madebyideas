@@ -10,9 +10,20 @@
            <%= f.text_field :username, :autocomplete => 'off'  %>
        </label>
        <label for="email" class="text">
-           <span>Username</span>
+           <span>Email</span>
            <%= f.text_field :email, :autocomplete => 'off'  %>
        </label>
+    </fieldset>
+    
+    <fieldset>
+      <label for="twitter_handle" class="text twitter">
+          <span>Twitter handle</span>
+          <%= f.text_field :twitter_handle, :autocomplete => 'off', :class => 'twitter'  %>
+      </label>
+      <label for="user_append_twitter_handle" class="checkbox">
+         <%= f.check_box :append_twitter_handle %>
+         <span>Mention me when Tweeting my ideas</span>
+      </label>
     </fieldset>
 	
      <fieldset>
@@ -24,7 +35,7 @@
             <span>New password, again</span>
             <%= f.password_field :password_confirmation, :autocomplete => 'off' %>
         </label>
-    </fielset>
+    </fieldset>
         
     <fieldset class="controls">
         <%= f.submit "Update", :class => 'button' %>

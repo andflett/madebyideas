@@ -4,6 +4,12 @@
 	
 		form { padding-bottom: 10px; }
 		
+		form fieldset {
+      padding: 0 0 10px;
+		}
+		
+		form fieldset.controls { padding: 0; }
+		
 		form .errorExplanation { padding-bottom: 5px; }
     form .errorExplanation li {
       color: #B03C3A;
@@ -42,16 +48,27 @@
 
 	/* =input */
 	
-	    label.text input { 
-		    padding: 5px; margin-bottom: 1em; font-size: 1em; margin-top: 0;
-		    border: 1px solid #cccccc; color: #303235; width: 98%;
-		    font-family: Arial, Helvetica, Sans-serif;
-	    }
+    label.text input { 
+      padding: 5px; margin-bottom: 1em; font-size: 1em; margin-top: 0;
+      border: 1px solid #cccccc; color: #303235; width: 290px;
+      font-family: Arial, Helvetica, Sans-serif;
+    }
+
+     label.text input.twitter { 
+       padding-left: 23px;
+       background: #fff url(../images/icons/twitter-handle.gif) no-repeat 3px 52%;
+       width: 272px;
+     }
+     
+      label.text.twitter span {
+        padding-left: 23px;
+      }
 	
 	/* =checkbox */
 	
 		label.checkbox {
-			margin-bottom: 1em;
+			margin-bottom: 0.75em;
+			margin-top: -0.25em;
 		}
 	
 		label.checkbox span {

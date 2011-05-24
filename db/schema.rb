@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110517202230) do
+ActiveRecord::Schema.define(:version => 20110523112216) do
 
   create_table "comments", :force => true do |t|
     t.text     "comment"
@@ -19,6 +19,13 @@ ActiveRecord::Schema.define(:version => 20110517202230) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.boolean  "private",    :default => true
+  end
+
+  create_table "favourites", :force => true do |t|
+    t.integer  "post_id"
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
   create_table "notifications", :force => true do |t|
@@ -58,13 +65,13 @@ ActiveRecord::Schema.define(:version => 20110517202230) do
   end
 
   create_table "users", :force => true do |t|
-    t.string   "email",                               :default => "",    :null => false
-    t.string   "encrypted_password",   :limit => 128, :default => "",    :null => false
-    t.string   "password_salt",                       :default => "",    :null => false
+    t.string   "email",                                :default => "",    :null => false
+    t.string   "encrypted_password",    :limit => 128, :default => "",    :null => false
+    t.string   "password_salt",                        :default => "",    :null => false
     t.string   "reset_password_token"
     t.string   "remember_token"
     t.datetime "remember_created_at"
-    t.integer  "sign_in_count",                       :default => 0
+    t.integer  "sign_in_count",                        :default => 0
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"
@@ -75,7 +82,8 @@ ActiveRecord::Schema.define(:version => 20110517202230) do
     t.string   "twitter_handle"
     t.string   "twitter_oauth_token"
     t.string   "twitter_oauth_secret"
-    t.boolean  "admin",                               :default => false
+    t.boolean  "admin",                                :default => false
+    t.boolean  "append_twitter_handle",                :default => false
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
