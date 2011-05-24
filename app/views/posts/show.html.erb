@@ -1,28 +1,29 @@
 <% @type = 'single' %>
 <%= render :partial => 'idea' %>
 
-<% if (can_view_private_conversation) or !@public_comments.nil? or (current_user && @post.completed_by == current_user.id) %>
+<% if current_user or !@post.comments.empty? %>
     <section id="comments">
         
         <% if can_view_private_conversation %>
-            <h2>Let's make this happen:</h2>
-            <ul id="idea-progress" class="toggler">
+          <h2>Let's make this happen:</h2>
+          <ul id="idea-progress" class="toggler">
         		<li class="<% if !@post.completed %>active<% end %> in-progress"><%= link_to 'In Progress', "/posts/#{@post.id}/complete/0", :remote => true %></li>
         		<li class="<% if @post.completed %>active<% end %> completed"><%= link_to 'Complete', "/posts/#{@post.id}/complete/1", :remote => true %></li>
         	</ul>
-            <% @comment = @new_comment %>
-            <%= render :partial => 'comments/form' %>
         <% else %>
-            <h2 class="inactive">Solutions and ideas&hellip;</h2>
+          <h2 class="inactive">Solutions, ideas, comments&hellip;</h2>
         <% end %>
         
-        <% 
-            @post.comments.each do |comment|
-                if (comment.private && can_view_private_conversation) or !comment.private or (current_user && (comment.user.id == current_user.id || @post.completed_by == current_user.id)) %>
-                   <%= render :partial => 'comments/comment', :locals => { :comment => comment } %>
-                <% end
-            end
-        %>
+        <% if current_user %>
+        <% @comment = @new_comment %>
+        <%= render :partial => 'comments/form' %>
+        <% end %>
+        
+        <% unless @post.comments.empty?
+            @post.comments.each do |comment| %>
+              <%= render :partial => 'comments/comment', :locals => { :comment => comment } %>
+            <% end 
+        end %>
         
     </section>
 <% end %>

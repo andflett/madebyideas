@@ -18,7 +18,7 @@ $('#idea-<%= params[:id] %> .claim').removeClass('control');
   <% if @post.owner_id == current_user.id %>
   $('#idea-<%= params[:id] %>').addClass('current-work');
   $('#idea-<%= params[:id] %> .claim').show();
-  $('#idea-<%= params[:id] %> .claim').html('You\'ve claimed this idea. You can <%= link_to "discuss it", "/posts/#{@post.id}" %> or <%= link_to "release it", "/posts/#{@post.id}/claim", :remote => "true" %> if you\'re finished')
+  $('#idea-<%= params[:id] %> .claim').html('You\'ve claimed this idea. You can <%= link_to "discuss it", "/posts/#{@post.id}" %> or <%= link_to "release it", "/posts/#{@post.id}/claim", :remote => "true" %> back to the crowd')
   <% else %>
   $('#idea-<%= params[:id] %> .claim').html('This idea has been claimed by <%= @owner.username %>')
   <% end %>
@@ -28,7 +28,7 @@ $('#idea-<%= params[:id] %> .claim').removeClass('control');
 $('#idea-<%= params[:id] %> .claim').addClass('control');
 $('#idea-<%= params[:id] %> .fulltext').removeClass('discuss').addClass('permalink');
 $('#idea-<%= params[:id] %> .claim').addClass('control');
-$('#idea-<%= params[:id] %> .claim').html('This idea is open, you can <%= link_to "claim it", "/posts/#{@post.id}/claim", :remote => "true" %> for yourself')
+$('#idea-<%= params[:id] %> .claim').html('This idea is open, you can <%= link_to "discuss it", "/posts/#{@post.id}" %> or <%= link_to "claim it", "/posts/#{@post.id}/claim", :remote => "true" %> for yourself')
 
 <% end %>
 
@@ -43,5 +43,5 @@ toggleControls("<%= params[:controller] %>-<%= params[:action] %>-<%= params[:id
 <% if !@post_claimed.nil? %>
 $('#idea-<%= @post_claimed.id %>').removeClass('owned');
 $('#idea-<%= @post_claimed.id %> .claim').addClass('control');
-$('#idea-<%= @post_claimed.id %> .claim').html('This idea is open, you can <%= link_to "claim it", "/posts/#{@post_claimed.id}/claim", :remote => "true" %> for yourself')
+$('#idea-<%= @post_claimed.id %> .claim').html('This idea is open, you can <%= link_to "discuss it", "/posts/#{@post.id}" %> or <%= link_to "claim it", "/posts/#{@post_claimed.id}/claim", :remote => "true" %> for yourself')
 <% end %>

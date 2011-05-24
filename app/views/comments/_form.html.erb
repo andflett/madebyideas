@@ -25,14 +25,8 @@ end
 	    <%= f.submit "Post comment", :class => 'button' %>
  	<% end %>
  	<% if controller.action_name != 'edit' %>
- 	<input class="private" type="hidden" name="comment[private]" value="<% if @post.completed %>false<% else %>true<% end %>" />
-    
- 	<p class="cta">Post a <span class="private-notice"><% if !@post.completed %>private<% else %>public<% end %></span> comment <span <% if @post.completed %>style="display:none;"<% end %> class="private-users">
- 	<% unless @owner.nil? %>
- 	between <em><%= @post.user.username %></em> and <em><%= @owner.username %></em>
+ 	<input class="private" type="hidden" name="comment[private]" value="false" />
  	<% end %>
-    </p>
-    <% end %></span>
   </fieldset>
 <% end %>
 </section>

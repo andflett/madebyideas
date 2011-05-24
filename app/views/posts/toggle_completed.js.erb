@@ -1,12 +1,6 @@
 $('#idea-progress li').removeClass('active');
 <% if @post.completed %>
-  $('form .private').val('false');
-  $('form .private-notice').html('public');
-  $('form .private-users').hide();
   $('#idea-progress .completed').addClass('active');
 <% else %>
-  $('form .private').val('true');
-  $('form .private-notice').html('private');
-  $('form .private-users').show();
   $('#idea-progress .in-progress').addClass('active');
 <% end %>

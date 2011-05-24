@@ -1,18 +1,18 @@
 <section class="idea <% if @post.total_rating > 0 %>rated<% end %> <%= @type %> <%= @post.status %> <%=  " inactive " unless current_user %> <%=  " current-work " if current_user && current_user.try(:id) == @post.owner_id %>" id="idea-<%= @post.id %>" data-rating="<%= @post.total_rating %>">
 	
 	<p class="meta">
-	    <% if current_user && @post.owner_id == current_user.id && current_user.id != @post.user.id %>
+	  <% if current_user %>
 	    <%= link_to "Discuss", "/i#{@post.id}", :title => "Discuss", :class => "icon fulltext discuss" %>
-	    <% else %>
-		<%= link_to "Permalink", "/i#{@post.id}", :title => "Permalink", :class => "icon fulltext permalink" %>
+	  <% else %>
+		  <%= link_to "Permalink", "/i#{@post.id}", :title => "Permalink", :class => "icon fulltext permalink" %>
 		<% end %>
 		<% if current_user and @post.user.id == current_user.id %>
       	This is <%= link_to "your", "#{posts_path}/user/#{@post.user.id}", :title=> "View your profile" %> idea from <%= @post.updated_at.to_s(:article) %>
     	<% elsif current_user && @post.status == 'owned' && @post.owner_id == current_user.id %>
-		Idea from <%= link_to @post.user.username, "#{posts_path}/user/#{@post.user.id}", :title=> "View #{@post.user.username}'s profile" %> on <%= @post.updated_at.to_s(:article) %>
+		    Idea from <%= link_to @post.user.username, "#{posts_path}/user/#{@post.user.id}", :title=> "View #{@post.user.username}'s profile" %> on <%= @post.updated_at.to_s(:article) %>
     	<% else %>
-		Idea occurred on <%= @post.updated_at.to_s(:article) %>
-		<% end %>
+		    Idea occurred on <%= @post.updated_at.to_s(:article) %>
+		  <% end %>
 		
 		<span class="actions">
 		    <span class="control"><a class="icon tweet" title="Share on Twitter" href="http://twitter.com/intent/tweet?url=http://byideas.co.uk/i<%= @post.id %>&amp;text=<%=u "Check out this idea @madebyideas" %>">Share on Twitter</a></span>
@@ -73,12 +73,12 @@
 			<% if @post.status == 'owned' %>
 			<% @owner = User.find(@post.owner_id) %>
 				<% if @post.owner_id == current_user.id %>
-				  You've claimed this idea. You can <%= link_to "discuss it", "/posts/#{@post.id}" %> or <%= link_to "release it", "/posts/#{@post.id}/claim", :remote => "true" %> if you're finished
+				  You've claimed this idea. You can <%= link_to "discuss it", "/posts/#{@post.id}" %> or <%= link_to "release it", "/posts/#{@post.id}/claim", :remote => "true" %> back to the crowd
 				<% else %>
 				  This idea has been claimed by <%= @owner.username %>
 				<% end %>
 			<% else %>
-			This idea is open, you can <%= link_to "claim it", "/posts/#{@post.id}/claim", :remote => "true" %> for yourself
+			  This idea is open, you can <%= link_to "discuss it", "/posts/#{@post.id}" %> or <%= link_to "claim it", "/posts/#{@post.id}/claim", :remote => "true" %> for yourself
 			<% end %>
 		</p>
 		<% else %>
@@ -86,7 +86,7 @@
 		<% @owner = User.find(@post.owner_id) %>
 		<p class="claim">This idea has been claimed by <%= @owner.username %></p>
 		<% end %>
-		<p class="sign_in"><%= link_to "Sign in", new_user_session_path, :remote => 'true' %> to rate or claim this idea</p>
+		<p class="sign_in"><%= link_to "Sign in", new_user_session_path, :remote => 'true' %> to rate, claim or discuss this idea</p>
 		<% end %>
 	</aside>
 	
