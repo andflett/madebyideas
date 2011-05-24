@@ -1,0 +1,12 @@
+<h2>Your favourite ideas&hellip;</h2>
+<% if @favourites.count == 0 %>
+<p class="cta">Nothing here yet.</p>
+<% end %>
+
+<% @favourites.each do |favourite| %>
+    <% 
+	  @post = Post.find(favourite.post_id) 
+	  @type = 'list'
+	%>
+    <%= render :partial => 'idea' %>
+<% end %>

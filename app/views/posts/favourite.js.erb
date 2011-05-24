@@ -1,0 +1,7 @@
+<% if @favourited %>
+$('#idea-<%= params[:id] %> .favourite').addClass('favourited');
+$('#idea-<%= params[:id] %> .favourite').attr('title','Remove star');
+<% else %>
+$('#idea-<%= params[:id] %> .favourite').removeClass('favourited');
+$('#idea-<%= params[:id] %> .favourite').attr('title','Star this idea');
+<% end %>
