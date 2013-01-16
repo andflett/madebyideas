@@ -1,6 +1,6 @@
 source 'http://rubygems.org'
 
-gem 'rails', '3.0.3'
+gem 'rails', '3.2.11'
 
 gem 'mysql2'
 gem 'devise'
@@ -11,6 +11,8 @@ gem 'devise-twitter'
 gem 'bitly'
 gem 'dynamic_form'
 gem 'profanalyzer'
+
+gem 'pg'
 
 # To use debugger (ruby-debug for Ruby 1.8.7+, ruby-debug19 for Ruby 1.9.2+)
 # gem 'ruby-debug'
