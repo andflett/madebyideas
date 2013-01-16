@@ -11,9 +11,9 @@ development:
   reconnect: false
   database: madebyideas
   pool: 5
+  host: 127.0.0.1
   username: root
-  password: Trer2Ziw
-  socket: /Applications/MAMP/tmp/mysql/mysql.sock
+  password: 
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
@@ -24,9 +24,9 @@ test:
     reconnect: false
     database: madebyideas
     pool: 5
+    host: 127.0.0.1
     username: root
-    password: Trer2Ziw
-    socket: /Applications/MAMP/tmp/mysql/mysql.sock
+    password: 
 
 production:
     adapter: mysql2
@@ -34,6 +34,6 @@ production:
     reconnect: false
     database: madebyideas
     pool: 5
+    host: 127.0.0.1
     username: root
-    password: Trer2Ziw
-    socket: /Applications/MAMP/tmp/mysql/mysql.sock
+    password: 

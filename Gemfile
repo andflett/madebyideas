@@ -1,8 +1,8 @@
 source 'http://rubygems.org'
 
-gem 'rails', '3.2.11'
+gem 'rails', '3.0.3'
 
-gem 'mysql2'
+gem 'mysql2', "0.2.3"
 gem 'devise'
 gem "will_paginate", "~> 3.0.pre2"
 gem "mail"
@@ -11,7 +11,7 @@ gem 'devise-twitter'
 gem 'bitly'
 gem 'dynamic_form'
 gem 'profanalyzer'
-
+gem 'rake', '0.8.7'
 gem 'pg'
 
 # To use debugger (ruby-debug for Ruby 1.8.7+, ruby-debug19 for Ruby 1.9.2+)
