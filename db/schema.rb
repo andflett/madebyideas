@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130116234304) do
+ActiveRecord::Schema.define(:version => 20130116235735) do
 
   create_table "comments", :force => true do |t|
     t.text     "comment"
@@ -29,8 +29,8 @@ ActiveRecord::Schema.define(:version => 20130116234304) do
   end
 
   create_table "notifications", :force => true do |t|
-    t.string   "user_id"
-    t.string   "post_id"
+    t.integer  "user_id"
+    t.integer  "post_id"
     t.string   "controller"
     t.string   "action"
     t.string   "value"
@@ -57,8 +57,8 @@ ActiveRecord::Schema.define(:version => 20130116234304) do
   end
 
   create_table "ratings", :force => true do |t|
-    t.string   "user_id"
-    t.string   "post_id"
+    t.integer  "user_id"
+    t.integer  "post_id"
     t.integer  "value"
     t.datetime "created_at"
     t.datetime "updated_at"
