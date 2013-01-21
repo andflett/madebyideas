@@ -13,7 +13,6 @@
 		form .errorExplanation { padding-bottom: 5px; }
     form .errorExplanation li {
       color: #B03C3A;
-      text-shadow: 1px 1px 0 #fff;
     }
 
 	/* =label */
@@ -29,16 +28,17 @@
 		}
 	    
     label.text span {
-      font-family: Arial, Helvetica, Sans-serif;
-      color: #999999; font-size: 1em; 
-      text-shadow: 0 1px 1px rgba(255,255,255,1); 
+      font-family: Helvetica, Sans-serif;
+      color: #999999; 
+			font-size: 0.925em; 
+			font-weight: 100;
     }
 
     label.text { width: 55%; }
 
     label.compact span { 
       color: #999999; position: absolute; 
-      padding: 8px; display: block;
+      padding: 12px 15px; display: block;
     }
 
     label.active span { display: none; }
@@ -49,19 +49,20 @@
 	/* =input */
 	
     label.text input { 
-      padding: 5px; margin-bottom: 1em; font-size: 1em; margin-top: 0;
+      padding: 10px 15px; margin-bottom: 1em; font-size: 1em; margin-top: 0;
       border: 1px solid #cccccc; color: #303235; width: 290px;
-      font-family: Arial, Helvetica, Sans-serif;
+      font-family: Helvetica, Sans-serif;
+			font-weight: 100;
     }
 
      label.text input.twitter { 
-       padding-left: 23px;
-       background: #fff url(../images/icons/twitter-handle.gif) no-repeat 3px 52%;
-       width: 272px;
+       padding-left: 34px;
+       background: #fff url(../images/icons/twitter-handle.gif) no-repeat 7px 49%;
+       width: 265px;
      }
      
       label.text.twitter span {
-        padding-left: 23px;
+        padding-left: 28px;
       }
 	
 	/* =checkbox */
@@ -74,7 +75,6 @@
 		label.checkbox span {
 	        font-family: Arial, Helvetica, Sans-serif;
 	        color: #333; font-size: 0.75em; 
-	        text-shadow: 0 1px 1px rgba(255,255,255,1); 
 	    }
 	    
 	/* =textarea */

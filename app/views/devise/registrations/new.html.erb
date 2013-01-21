@@ -1,4 +1,4 @@
-<h2>Just need a few details&hellip;</h2>
+<h2>Just a few details</h2>
 
 <%= form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f| %>
 
@@ -13,20 +13,11 @@
            <span>Email</span>
            <%= f.text_field :email, :autocomplete => 'off'  %>
        </label>
-    </fieldset>
-    
-    <fieldset>
       <label for="twitter_handle" class="text twitter">
-          <span>Twitter handle</span>
+          <span>TwitterHandle</span>
           <%= f.text_field :twitter_handle, :autocomplete => 'off', :class => 'twitter'  %>
       </label>
-      <label for="user_append_twitter_handle" class="checkbox">
-         <%= f.check_box :append_twitter_handle %>
-         <span>Mention me when Tweeting my ideas</span>
-      </label>
-    </fieldset>
-	
-     <fieldset>
+ 
         <label for="password" class="text">
             <span>Password</span>
             <%= f.password_field :password, :autocomplete => 'off' %>
@@ -35,10 +26,14 @@
             <span>Password, again</span>
             <%= f.password_field :password_confirmation, :autocomplete => 'off' %>
         </label>
+     <label for="user_append_twitter_handle" class="checkbox">
+         <%= f.check_box :append_twitter_handle %>
+         <span>Mention me when Tweeting my ideas</span>
+      </label>
     </fieldset>
     
     <fieldset class="controls">
-        <%= f.submit "Create account", :class => 'button' %>
+        <%= f.submit "Let me post ideas!", :class => 'button' %>
     </fieldset>
     
 <% end %>

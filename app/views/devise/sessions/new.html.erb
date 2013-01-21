@@ -1,4 +1,4 @@
-<h2>You know the drill&hellip;</h2>
+<h2>You know the drill</h2>
 <%= form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f| %>
 
     <fieldset>
@@ -17,8 +17,8 @@
 
     <fieldset class="controls">
         <input type="hidden" id="next-url" name="next" value="<%= root_path %>" />
-        <%= f.submit "Sign in", :class => 'button' %>
-        <p><%= link_to "Forgot your password?", new_password_path(resource_name) %></p>
+        <%= f.submit "Sign me in", :class => 'button' %>
+        <p><%#= link_to "Forgot your password?", new_password_path(resource_name) %></p>
     </fieldset>
 
 <% end %>

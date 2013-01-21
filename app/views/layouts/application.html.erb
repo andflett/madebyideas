@@ -27,7 +27,7 @@
 					    <li><%= link_to('Sign out', destroy_user_session_path, :class => 'button') %></li>
 					</ul>
     			<% else %>
-    				<p><%= link_to "Sign in", new_user_session_path, :remote => 'true' %>, create <%= link_to "an account", new_user_registration_path, :remote => 'true' %> or <%= link_to "find out more", about_path, :remote => 'true' %></p>
+    				<p><%= link_to "I have an idea!", new_post_path, :remote => 'true' %> &ndash; <%= link_to "How does this work?", about_path, :remote => 'true' %></p>
     			<% end %>
     		</aside>
 	    </section>
@@ -49,11 +49,9 @@
     </section>
     
     <footer>
-        <details class="container">
-            <p class="alt"></p>   
-            <p>All ideas belong to the crowd and don't necessarily reflect the views of Made by Many</p>
-            <p>Please <a href="mailto:report@byideas.co.uk">report any offensive content</a>, or <a href="mailto:help@byideas.co.uk">contact us</a> for help. <a href="/rss">RSS</a></p>
-        </details>
+        <div class="container">
+            <p>Grab ideas by <a href="/rss">RSS</a></p>
+        </div>
     </footer>
     
     <%- if "production" == RAILS_ENV -%>

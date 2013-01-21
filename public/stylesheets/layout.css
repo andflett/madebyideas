@@ -6,78 +6,60 @@
 @media all {
 
   body { 
-      background-color: #e4e2e3;
-      background-repeat: repeat;
-      background-image: url(../images/layout/background.gif);
+      background-color: #f3f3f3;
   }
      
   .container {
-      width: 540px; margin: 0 auto; 
+      width: 700px; margin: 0 auto; 
       overflow: hidden; display: block;
   }
 
 	/* =header */
 
 		header { 
-		    width: 100%; display: block; overflow: hidden;
-		    border-bottom: 1px solid #7f2424; padding: 31px 0 0;
-		    background: #b03c3a; background-repeat: repeat;
-	      background-image: url(../images/layout/header-background.gif);
-		    -webkit-box-shadow: 0 10px 20px rgba(200,199,199,0.8);
-		    -moz-box-shadow: 0 10px 20px rgba(200,199,199,0.8);
-			  box-shadow: 0 10px 20px rgba(200,199,199,0.8);
-	    }
-
-		header h1 { float: left; text-shadow: 0 2px 0px #7f2424; margin-bottom: 27px; }
-		header h1 a { color: #ffffff; }
-		header h1 a:hover, header h1 a:active, header h1 a:focus { text-decoration: none; text-shadow: 0px -1px 0 #000000; }
-
-		header aside { 
-		  float: right; position: relative;
-		  border: 1px solid #902929;
-		  margin: 27px 0 0;
-			-moz-border-radius: 10px 10px 0 0;
-			-webkit-border-radius: 10px 10px 0 0;
-			border-radius: 10px 10px 0 0; top: 2px;
-			background-image: url(../images/layout/background.gif);
-			-moz-box-shadow: inset 0 -7px 7px rgba(70,70,70,0.1);
-			-webkit-box-shadow: inset 0 -7px 7px rgba(70,70,70,0.1);
-			box-shadow: inset 0 -7px 7px rgba(70,70,70,0.1);
+		    width: 100%; display: block; 
+				overflow: hidden;
+		    padding: 55px 0 40px;
+		    background: #546775;
 	  }
 
-		header aside:hover { 
-			-moz-box-shadow: inset 0 7px 7px rgba(70,70,70,0.1);
-			-webkit-box-shadow: inset 0 7px 7px rgba(70,70,70,0.1);
-			box-shadow: inset 0 7px 7px rgba(70,70,70,0.1);
+		header .container {
+			position: relative;
+			overflow: visible;
 		}
+
+		header h1 { float: left; margin-bottom: 0px; }
+		header h1 a { color: #f3f3f3; }
+		header h1 a:hover, header h1 a:active, header h1 a:focus { text-decoration: none; }
+
+		header aside { 
+		  position: absolute;
+			bottom: -69px;
+		  margin: 27px 0 0;
+			background-color: #f3f3f3;
+			right: 0;
+	  }
 
 		header aside p { 
 		  padding: 6px 15px 6px 15px; 
-		  border: 1px solid #ffffff; float: right;
-		  text-shadow: 0 1px 0 #ffffff; margin: 0;
+			float: right;
 			list-style-type: none;
-			-moz-border-radius: 10px 10px 0 0;
-			-webkit-border-radius: 10px 10px 0 0;
-			border-radius: 10px 10px 0 0;
+			margin: 0;
 			min-width: 110px;
 			color: #555;
 			font-size: 12px; 
 	  }
 
-    header aside p.control span { color: #B03C3A; }
+    header aside p.control span { color: #4b5c68; }
 
     /* =contol */
 
     section#controls {
-		    border-top: 1px solid #ffffff;
 		    border-bottom: 1px solid #ccc;
-		    background: #e4e2e3; display: block;
-		    -webkit-box-shadow: inset 0 0px 20px rgba(200,199,199,1);
-		    -moz-box-shadow: inset 0 0px 20px rgba(200,199,199,1);
-			  box-shadow: inset 0 0px 20px rgba(200,199,199,1);
+		    background: #ffffff; display: block;
 		}
 
-		section#controls .container { padding: 23px 0 10px; }
+		section#controls .container { padding: 35px 0 25px; }
 		section#controls .notices { padding: 15px 0 0; }
     
 		section#controls ul#userControls {
@@ -95,7 +77,6 @@
 
 		section#content { 
 		    display: block; padding-top: 25px; 
-		    border-top: 1px solid #ffffff;
 		    padding-bottom: 15px;
     }
     
@@ -103,12 +84,11 @@
     section.error p { font-size: 0.75em; }
     
     section#filters { width: 100%; overflow: hidden; }
-    section#filters .toggler { float: left; width: auto; margin-bottom: 8px; }
-    section#filters .toggler li a { width: auto; padding: 5px 10px; }
+    section#filters .toggler { float: left; width: auto; margin-bottom: 20px; margin-top: 11px }
+    section#filters .toggler li a { width: auto; padding: 10px; }
     
     section#filters #claimed_id {
       float: right;
-      text-shadow: 1px 1px 0 #fff;
       margin-bottom: 12px;
       text-align: right;
       font-size: 0.625em;
@@ -119,21 +99,15 @@
 
     /* =footer */
     
-    footer details {
-      box-shadow: 0 -1px 0 #ccc;
-      -moz-box-shadow: 0 -1px 0 #ccc;
-      -webkit-box-shadow: 0 -1px 0 #ccc;
-      border-top: 1px solid #fff;
+    footer div {
       padding: 12px 0 35px;
     }
     
     footer p {
-      text-shadow: 1px 1px 0 #fff;
       font-size: 0.625em;
       text-align: right;
       margin-bottom: 2px;
       padding-right: 2px;
-      opacity: 0.8;
     }
 
 }
