@@ -10,6 +10,16 @@ class Casting < ActiveRecord::Migration
 		    alter column post_id
 		    type integer using cast(number as integer)
 		})
+		connection.execute(%q{
+		    alter table notifications
+		    alter column user_id
+		    type integer using cast(number as integer)
+		})
+		connection.execute(%q{
+		    alter table notifications
+		    alter column post_id
+		    type integer using cast(number as integer)
+		})
   end
 
   def self.down
