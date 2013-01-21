@@ -3,11 +3,11 @@ class HomeController < ApplicationController
   def index
     
     if params[:type] == 'complete'
-      @conditions = ['deleted = false and completed = true']
+      @conditions = ["deleted = false and completed = true"]
     elsif params[:type] == 'progress'
-      @conditions = ['deleted = false and completed = false and status = "owned"']
+      @conditions = ["deleted = false and completed = false and status = 'owned'"]
     else
-      @conditions = ['deleted = false and completed = false and status = "open"']
+      @conditions = ["deleted = false and completed = false and status = 'open'"]
     end
     
     @posts = Post.paginate :page => params[:page],
