@@ -354,17 +354,12 @@
     color: #bbb; 
     font-size: 13px; 
     padding: 12px 0 0 9px;
-    font-style: italic;
   }
   
   section#comments form textarea { 
     border: 1px solid #ccc; 
     text-shadow: none;
-    -moz-border-radius: 2px;
-    -webkit-border-radius: 2px;
-    border-radius: 2px;
     margin-bottom: 26px;
-    background: url("../images/layout/background.gif");
   }
   
   section#comments form fieldset.controls p { 

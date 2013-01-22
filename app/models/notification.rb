@@ -30,7 +30,8 @@ class Notification < ActiveRecord::Base
     end
 
 		# Used to be in the queuer
-    NotificationMailer.action_notification(@existing_notification)
+		@notification = Notification.new()
+    @notification.deliver_queue
 
   end
 
