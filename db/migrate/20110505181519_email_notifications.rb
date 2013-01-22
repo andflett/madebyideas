@@ -1,8 +1,8 @@
 class EmailNotifications < ActiveRecord::Migration
   def self.up
     create_table :notifications do |t|
-      t.string :user_id
-      t.string :post_id
+      t.integer :user_id
+      t.integer :post_id
       t.string :controller
       t.string :action
       t.string :value

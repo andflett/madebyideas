@@ -21,6 +21,7 @@ class Post < ActiveRecord::Base
   validate :validate_not_profane
   
   before_create :format_for_publish
+	after_create :pubish
   
   def format_for_publish
     #self.title = self.title.gsub("@","[at]")

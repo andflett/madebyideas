@@ -28,7 +28,10 @@ class Notification < ActiveRecord::Base
         @existing_notification.first.update_attribute(:value,value)
       end
     end
-    
+
+		# Used to be in the queuer
+    NotificationMailer.action_notification(@existing_notification)
+
   end
 
   def deliver_queue

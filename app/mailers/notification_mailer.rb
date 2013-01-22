@@ -10,7 +10,7 @@ class NotificationMailer < ActionMailer::Base
     unless @post.nil? or @owner.nil? or @action_by.nil?
 
       if (notification.controller == 'posts' and notification.action == 'toggle_flagged')
-        @to = 'andrew@madebymany.co.uk'
+        @to = 'andrewsprinz@gmail.com'
       elsif(notification.controller == 'comments')
         if (@action_by.id == @owner.id && !@post.owner_id.nil?)
           @owner = User.find(@post.owner_id)
