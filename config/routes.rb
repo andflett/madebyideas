@@ -1,8 +1,8 @@
 MadeByIdeas::Application.routes.draw do
 
-	constraints(:host => /byideas.co.uk/) do
-	        root :to => redirect("http://made.byideas.co.uk")
-	        match '/*path', :to => redirect {|params| "http://made.byideas.co.uk/#{params[:path]}"}
+	constraints(:host => 'byideas.co.uk') do
+		root :to => redirect("http://made.byideas.co.uk")
+	  match '/*path', :to => redirect {|params| "http://made.byideas.co.uk/#{params[:path]}"}
 	end
 
   root :to => 'home#index'
