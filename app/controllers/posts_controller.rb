@@ -41,12 +41,13 @@ class PostsController < ApplicationController
   	elsif current_user
   	  @conditions = ['users_id=? and deleted = false',"#{current_user.id}"]
     end
-    
+
     @posts = Post.paginate :page => params[:page], 
     :conditions => @conditions,
-    :joins => "left join ratings r on posts.id = r.post_id left join favourites f on posts.id = f.post_id", 
+    :select => "posts.*, sum(r.value) as rate",
+    :joins => "left outer join ratings r on posts.id = r.post_id left join favourites f on posts.id = f.post_id", 
     :group => 'posts.id',
-    :order => 'sum(r.value) DESC, posts.id DESC'
+    :order => 'rate DESC, posts.id DESC'
     
     if @posts.count == 0 and @user and current_user
       if current_user.id == @user.id

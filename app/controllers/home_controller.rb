@@ -12,9 +12,10 @@ class HomeController < ApplicationController
     
     @posts = Post.paginate :page => params[:page],
     :conditions => @conditions,
-    :joins => "left join ratings r on posts.id = r.post_id", 
+		:select => "posts.*, sum(r.value) as rate",
+    :joins => "left outer join ratings r on posts.id = r.post_id", 
     :group => 'posts.id',
-    :order => 'sum(r.value) DESC, posts.id DESC'
+    :order => 'rate DESC'
 
     respond_to do |format|
         format.html { render :layout => true }
