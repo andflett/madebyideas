@@ -1,6 +1,14 @@
 MadeByIdeas::Application.routes.draw do
 
-	constraints(:subdomain => '') do
+	class NoSubdomainRoute
+
+	  def self.matches?(request)
+	    !request.subdomain.present?
+	  end
+
+	end
+
+	constraints(NoSubdomainRoute) do
 		root :to => redirect("http://made.byideas.co.uk")
 	  match '/*path', :to => redirect {|params| "http://made.byideas.co.uk/#{params[:path]}"}
 	end
