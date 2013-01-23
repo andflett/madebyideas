@@ -15,7 +15,8 @@ class HomeController < ApplicationController
 		:select => "posts.*, sum(r.value) as rate",
     :joins => "left outer join ratings r on posts.id = r.post_id", 
     :group => 'posts.id',
-    :order => 'rate DESC NULLS LAST, posts.id DESC'
+		#:order => 'rate DESC, posts.id DESC'
+    :order => 'rate DESC NULLS LAST, posts.id DESC' #FOR POSTGRES
 
     respond_to do |format|
         format.html { render :layout => true }
