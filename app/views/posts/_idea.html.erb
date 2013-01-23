@@ -1,4 +1,5 @@
 <section class="idea <% if @post.total_rating > 0 %>rated<% end %> <%= @type %> <%= @post.status %> <%=  " inactive " unless current_user %> <%=  " current-work " if current_user && current_user.try(:id) == @post.owner_id %>" id="idea-<%= @post.id %>" data-rating="<%= @post.total_rating %>">
+	<%= @post.rate %>
 
 	<p class="meta">
 	  <% if current_user %>

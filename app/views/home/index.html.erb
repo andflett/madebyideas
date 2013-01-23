@@ -1,5 +1,5 @@
 <section id="filters">
-<%= @post.rate %>
+
 <ul class="toggler availability">
     <li data-type='available' <%  if params[:type].nil? %>class="active"<% end %>><%= link_to "Available", "/?switch=true", :remote => true %></li>
     <li data-type='progress' <%  if params[:type] == 'progress' %>class="active"<% end %>><%= link_to "In progress", "/home/progress?switch=true", :remote => true %></li>
