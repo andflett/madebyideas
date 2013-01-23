@@ -1,4 +1,4 @@
-<h2>You know the drill</h2>
+<h2>Gotta login, or <%= link_to "sign up", new_user_registration_path, :remote => true %> first</h2>
 <%= form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f| %>
 
     <fieldset>

@@ -13,29 +13,17 @@
            <span>Email</span>
            <%= f.text_field :email, :autocomplete => 'off'  %>
        </label>
-    </fieldset>
-    
-    <fieldset>
+
       <label for="twitter_handle" class="text twitter">
           <span>Twitter handle</span>
           <%= f.text_field :twitter_handle, :autocomplete => 'off', :class => 'twitter'  %>
       </label>
-      <label for="user_append_twitter_handle" class="checkbox">
-         <%= f.check_box :append_twitter_handle %>
-         <span>Mention me when Tweeting my ideas</span>
-      </label>
-    </fieldset>
-	
-     <fieldset>
-        <label for="password" class="text">
-            <span>New password</span>
-            <%= f.password_field :password, :autocomplete => 'off' %>
-        </label>
-        <label for="password_confirmation" class="text">
-            <span>New password, again</span>
-            <%= f.password_field :password_confirmation, :autocomplete => 'off' %>
-        </label>
-    </fieldset>
+     
+    
+		<label for="user_append_twitter_handle" class="checkbox">
+	         <%= f.check_box :append_twitter_handle %>
+	         <span>Mention me when Tweeting my ideas</span>
+	      </label>
         
     <fieldset class="controls">
         <%= f.submit "Update", :class => 'button' %>

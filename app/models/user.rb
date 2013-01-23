@@ -32,9 +32,7 @@ class User < ActiveRecord::Base
 
   validates :username, :presence => true, :uniqueness => true
   
-  def password_required?
-    new_record?
-  end
+
   
   protected
 
@@ -43,5 +41,9 @@ class User < ActiveRecord::Base
      login = conditions.delete(:login)
      where(conditions).where(["lower(username) = :value OR lower(email) = :value", { :value => login.downcase }]).first
    end
+
+     def password_required?
+      !persisted? || password.present? || password_confirmation.present?
+    end
   
 end

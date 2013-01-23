@@ -1,13 +1,9 @@
 MadeByIdeas::Application.routes.draw do
 
-  devise_for :users
-
   root :to => 'home#index'
   
   resources :comments
-  devise_for :users, :controllers => { :registrations => "registrations" } 
-  devise_for :user do
-  end
+  devise_for :users, :controllers => { :registrations => "registrations" }
 
   match "/posts/starred" => "posts#starred"
   resources :posts

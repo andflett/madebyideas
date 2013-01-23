@@ -114,8 +114,8 @@ $(document).ready(function(){
 
   /* User account */
   $('#userControls').hide();
-  $('header aside p.control').css({cursor:'pointer'})
-  $('header aside p.control').click(function(){
+  $('header aside p.control span').css({cursor:'pointer'})
+  $('header aside p.control span').click(function(){
     content = $('#userControls').clone();
     content.show();
     toggleControls("userControls",content);

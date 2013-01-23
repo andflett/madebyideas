@@ -50,7 +50,7 @@
 			font-size: 12px; 
 	  }
 
-    header aside p.control span { color: #4b5c68; }
+    header aside p.control span { color: #6e95b2; }
 
     /* =contol */
 
@@ -59,8 +59,8 @@
 		    background: #ffffff; display: block;
 		}
 
-		section#controls .container { padding: 35px 0 25px; }
-		section#controls .notices { padding: 15px 0 0; }
+		section#controls .container { padding: 40px 0 25px; }
+		section#controls .notices { padding: 30px 0 11px; }
     
 		section#controls ul#userControls {
 			list-style-type: none;

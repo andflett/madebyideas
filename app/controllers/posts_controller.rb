@@ -1,5 +1,5 @@
 class PostsController < ApplicationController
-  before_filter :authenticate_user!, :only => [:new, :create, :edit, :update, :destroy, :rate, :claim, :toggle_flagged, :toggle_deleted, :starred, :favourite]
+  before_filter :authenticate_user!, :only => [:create, :edit, :update, :destroy, :rate, :claim, :toggle_flagged, :toggle_deleted, :starred, :favourite]
   before_filter :fetch_post, :only => [:edit, :update, :destroy]
   before_filter :authorise_as_owner, :only => [:edit, :update, :destroy]
      
@@ -100,14 +100,26 @@ class PostsController < ApplicationController
   end
   
   def new
-    @post = Post.new
-    respond_to do |format|
-        if request.xhr?
-            format.js { render :layout => false }  
-        else
-           format.html { render :layout => true }
-        end
-  	end
+	
+		if user_signed_in?
+    	@post = Post.new
+	    respond_to do |format|
+	        if request.xhr?
+	            format.js { render :layout => false }  
+	        else
+	           format.html { render :layout => true }
+	        end
+	  	end
+		else
+			respond_to do |format|
+	        if request.xhr?
+	           format.js { render  "devise/sessions/new", :layout => false }  
+	        else
+	           authenticate_user!
+	        end
+	  	end
+		end
+		
   end
 
   def create

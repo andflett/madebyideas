@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130121225949) do
+ActiveRecord::Schema.define(:version => 20130123094316) do
 
   create_table "comments", :force => true do |t|
     t.text     "comment"
@@ -88,7 +88,6 @@ ActiveRecord::Schema.define(:version => 20130121225949) do
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
   add_index "users", ["reset_password_token"], :name => "index_users_on_reset_password_token", :unique => true
-  add_index "users", ["twitter_handle"], :name => "index_users_on_twitter_handle", :unique => true
   add_index "users", ["twitter_oauth_token", "twitter_oauth_secret"], :name => "index_users_on_twitter_oauth_token_and_twitter_oauth_secret"
 
 end

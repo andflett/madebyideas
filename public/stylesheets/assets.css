@@ -114,11 +114,11 @@
   .new_post label.text .character-count,
   .edit_post label.text .character-count {
     position: absolute;
-    top: 0; right: 0;
+    top: 0; right: -5px;
     font-size: 0.625em;
-    padding: 0; 
-    margin: 0;
-    line-height: 28px;
+ padding: 0;  
+ margin: 0;
+    line-height: 40px;
     color: #999999;
   }
 

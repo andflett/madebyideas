@@ -2,7 +2,7 @@
 
 	/* =form */
 	
-		form { padding-bottom: 10px; }
+		form { padding-bottom: 17px; padding-top: 7px; }
 		
 		form fieldset {
       padding: 0 0 10px;
@@ -44,7 +44,7 @@
     label.active span { display: none; }
 
     fieldset.controls input { float: left; }
-    fieldset.controls p { width: 50%; float: left; padding: 6px 0 0 12px; }
+    fieldset.controls p { width: 50%; float: left; padding: 6px 0 0 12px; margin: 0; }
 
 	/* =input */
 	
